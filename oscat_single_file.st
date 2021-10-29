@@ -2,13 +2,14 @@
 (* @PATH := '\/Buffer Management' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
+@EXTERNAL
 FUNCTION _BUFFER_CLEAR : BOOL
 VAR_INPUT
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 	SIZE : UINT;
 END_VAR
 VAR
-	ptw : POINTER TO DWORD;
+	ptw : REF_TO DWORD;
 	temp: DWORD;
 	end, end32 : DWORD;
 END_VAR
@@ -72,14 +73,15 @@ END_FUNCTION
 (* @PATH := '\/Buffer Management' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
+@EXTERNAL
 FUNCTION _BUFFER_INIT : BOOL
 VAR_INPUT
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 	SIZE : UINT;
 	INIT : BYTE;
 END_VAR
 VAR
-	ptw : POINTER TO DWORD;
+	ptw : REF_TO DWORD;
 	temp : DWORD;
 	end, end32 : DWORD;
 END_VAR
@@ -145,9 +147,9 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _BUFFER_INSERT : INT
 VAR_INPUT
-	STR : STRING(STRING_LENGTH);
+	STR : STRING[STRING_LENGTH];
 	POS : INT;
-	PT : POINTER TO ARRAY[0..32767] OF BYTE;
+	PT : REF_TO ARRAY[0..32767] OF BYTE;
 	SIZE : UINT;
 END_VAR
 VAR
@@ -210,7 +212,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _BUFFER_UPPERCASE : BOOL
 VAR_INPUT
-	PT : POINTER TO ARRAY[0..32000] OF BYTE;
+	PT : REF_TO ARRAY[0..32000] OF BYTE;
 	SIZE : INT;
 END_VAR
 VAR
@@ -251,15 +253,16 @@ END_FUNCTION
 (* @PATH := '\/Buffer Management' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
+@EXTERNAL
 FUNCTION _STRING_TO_BUFFER : INT
 VAR_INPUT
-	STR : STRING(STRING_LENGTH);
+	STR : STRING[STRING_LENGTH];
 	POS : INT;
-	PT : POINTER TO ARRAY[0..32767] OF BYTE;
+	PT : REF_TO ARRAY[0..32767] OF BYTE;
 	SIZE : UINT;
 END_VAR
 VAR
-	ps : POINTER TO BYTE;
+	ps : REF_TO BYTE;
 	i: INT;
 	end: INT;
 END_VAR
@@ -314,9 +317,9 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION BUFFER_COMP : INT
 VAR_INPUT
-	PT1 : POINTER TO ARRAY[0..32767] OF BYTE;
+	PT1 : REF_TO ARRAY[0..32767] OF BYTE;
 	SIZE1 : INT;
-	PT2 : POINTER TO ARRAY[0..32767] OF BYTE;
+	PT2 : REF_TO ARRAY[0..32767] OF BYTE;
 	SIZE2 : INT;
 	START : INT;
 END_VAR
@@ -374,14 +377,14 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION BUFFER_SEARCH : INT
 VAR_INPUT
-	PT : POINTER TO ARRAY[0..32767] OF BYTE;
+	PT : REF_TO ARRAY[0..32767] OF BYTE;
 	SIZE : INT;
-	STR : STRING(STRING_LENGTH);
+	STR : STRING[STRING_LENGTH];
 	POS : INT;
 	IGN : BOOL;
 END_VAR
 VAR
-	ps : POINTER TO ARRAY[0..STRING_LENGTH] OF BYTE;
+	ps : REF_TO ARRAY[0..STRING_LENGTH] OF BYTE;
 	chx : BYTE;
 	i: INT;
 	end: INT;
@@ -447,15 +450,16 @@ END_FUNCTION
 (* @PATH := '\/Buffer Management' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION BUFFER_TO_STRING : STRING(STRING_LENGTH)
+@EXTERNAL
+FUNCTION BUFFER_TO_STRING : STRING[STRING_LENGTH]
 VAR_INPUT
-	PT : POINTER TO ARRAY[0..32767] OF BYTE;
+	PT : REF_TO ARRAY[0..32767] OF BYTE;
 	SIZE : UINT;
 	START : UINT;
 	STOP : UINT;
 END_VAR
 VAR
-	ps : POINTER TO BYTE;
+	ps : REF_TO BYTE;
 	i : UINT;
 	stp: UINT;
 	sta: UINT;
@@ -525,7 +529,7 @@ END_FUNCTION
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK DRIVER_1
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Toggle_Mode : BOOL;
 	Timeout : TIME;
 END_VAR
@@ -579,7 +583,7 @@ END_FUNCTION_BLOCK
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK DRIVER_4
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Toggle_Mode : BOOL;
 	Timeout : TIME;
 END_VAR
@@ -635,9 +639,9 @@ VAR_INPUT
 	IN : BOOL;
 	RST : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Timeout : TIME;
-	SX : ARRAY[1..7] OF BYTE := 1,3,7,15;
+	SX : ARRAY[1..7] OF BYTE := [1,3,7,15];
 END_VAR
 VAR_OUTPUT
 	SN : INT;
@@ -707,7 +711,7 @@ VAR_INPUT
 	ENQ : BOOL;
 	RST : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	T_AUTO : TIME := T#1h;
 	T_DELAY : TIME := T#23h;
 END_VAR
@@ -777,7 +781,7 @@ VAR_INPUT
 	M : REAL := 1.0;
 	E : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	value_0 : REAL;
 	time_1 : TIME;
 	value_1 : REAL;
@@ -1038,7 +1042,7 @@ END_FUNCTION_BLOCK
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK INTERLOCK_4
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 END_VAR
 VAR_INPUT
 	I0 : BOOL;
@@ -1406,7 +1410,7 @@ FUNCTION_BLOCK PARSET
 VAR_INPUT
 	A0, A1 : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	X01, X02, X03, X04 : REAL;
 	X11, X12, X13, X14 : REAL;
 	X21, X22, X23, X24 : REAL;
@@ -1513,7 +1517,7 @@ FUNCTION_BLOCK PARSET2
 VAR_INPUT
 	X : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	X01, X02, X03, X04 : REAL;
 	X11, X12, X13, X14 : REAL;
 	X21, X22, X23, X24 : REAL;
@@ -1636,7 +1640,7 @@ VAR_INPUT
 	IN4 : BOOL;
 	TS : TIME;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	S1 : BYTE := 2#1111_1111;
 	S2 : BYTE := 2#1111_0000;
 	S3 : BYTE := 2#1010_1010;
@@ -1692,7 +1696,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Engineering\/automation' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK SRAMP
+FUNCTION_BLOCK SRAMP
 VAR_INPUT
 	X : REAL;
 	A_UP : REAL;
@@ -1781,7 +1785,7 @@ VAR_INPUT
 	SU, SD : BOOL;
 	RST : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	SS : REAL := 0.1;
 	Limit_L : REAL;
 	LIMIT_H : REAL := 100.0;
@@ -1895,7 +1899,7 @@ VAR_INPUT
 	FU, FD : BOOL;
 	RST : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	SS : REAL := 0.1;
 	FS : REAL := 5.0;
 	Limit_L : REAL;
@@ -2062,7 +2066,7 @@ VAR_INPUT
 	PI : BOOL;
 	PID : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	P_K : REAL := 0.5;
 	PI_K : REAL := 0.45;
 	PI_TN : REAL := 0.83;
@@ -2131,7 +2135,7 @@ VAR_INPUT
 	PI : BOOL;
 	PID : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	P_K : REAL := 1.0;
 	PI_K : REAL := 0.9;
 	PI_TN : REAL := 3.33;
@@ -4269,7 +4273,7 @@ END_FUNCTION
 (* @PATH := '\/Engineering\/conversion' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION DEG_TO_DIR : STRING(3)
+FUNCTION DEG_TO_DIR : STRING[3]
 VAR_INPUT
 	DEG : INT;
 	N : INT;
@@ -4326,7 +4330,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION DIR_TO_DEG : INT
 VAR_INPUT
-	DIR : STRING(3);
+	DIR : STRING[3];
 	L : INT;
 END_VAR
 VAR
@@ -5063,7 +5067,7 @@ VAR_INPUT
 	X : REAL;
 	rst : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	trigger_Low : REAL;
 	trigger_High : REAL;
 	Alarm_low : BOOL;
@@ -5184,7 +5188,7 @@ VAR_INPUT
 	CO : BOOL;
 	CS : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Y_Offset : REAL;
 	Y_Scale : REAL;
 END_VAR
@@ -5375,7 +5379,7 @@ VAR_INPUT
 	E : BOOL;
 	RST : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	PULSE_MODE : BOOL;
 	UPDATE_TIME : TIME := t#1s;
 END_VAR
@@ -6756,7 +6760,7 @@ VAR
 	X: REAL;
 	Y: REAL;
 	t1: REAL;
-	pt : POINTER TO DWORD;
+	pt : REF_TO DWORD;
 END_VAR
 
 (*
@@ -7866,7 +7870,7 @@ VAR_INPUT
 	IN : BOOL;
 	VAL : BYTE;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	PT_ON: TIME;
 	PT_OFF : TIME;
 END_VAR
@@ -8017,7 +8021,7 @@ FUNCTION AIN : REAL
 VAR_INPUT
 	in : DWORD;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Bits : BYTE;
 	sign : BYTE := 255;
 	low : REAL;
@@ -8084,7 +8088,7 @@ FUNCTION_BLOCK AIN1
 VAR_INPUT
 	in : DWORD;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	sign_bit : INT := 255;
 	error_bit : INT := 255;
 	error_code_en : BOOL;
@@ -8173,7 +8177,7 @@ FUNCTION AOUT : DWORD
 VAR_INPUT
 	in : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Bits : BYTE;
 	sign : BYTE := 255;
 	low : REAL;
@@ -8244,7 +8248,7 @@ FUNCTION AOUT1 : DWORD
 VAR_INPUT
 	in : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Bit_0 : INT;
 	Bit_N : INT := 31;
 	sign : INT := 255;
@@ -9004,7 +9008,7 @@ VAR_INPUT
 	O1, O2, O3, O4 : BOOL;
 	D : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Offset_1 : REAL;
 	Offset_2 : REAL;
 	Offset_3 : REAL;
@@ -9050,7 +9054,7 @@ VAR_INPUT
 	O1, O2, O3, O4 : BOOL;
 	D : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Offset_1 : REAL;
 	Offset_2 : REAL;
 	Offset_3 : REAL;
@@ -9082,7 +9086,7 @@ END_FUNCTION
 (* @PATH := '\/Engineering\/signal processing' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION OVERRIDE : REAL
+FUNCTION _OVERRIDE : REAL
 VAR_INPUT
 	X1, X2, X3 : REAL;
 	E1 : BOOL;
@@ -9096,14 +9100,14 @@ version 1.0	4 nov 2007
 programmer 	oscat
 tested by	tobias
 
-OVERRIDE deliveres the maximum absolute value of the 3 inputs X1, X2 and X3.
+_OVERRIDE deliveres the maximum absolute value of the 3 inputs X1, X2 and X3.
 with the inputs E1, E2 and E3 each of the 3 inputs can be turned on or off.
 
 *) 
 (* @END_DECLARATION := '0' *)
-IF E1 THEN OVERRIDE := X1; END_IF;
-IF E2 AND ABS(x2) > ABS(OVERRIDE) THEN OVERRIDE := X2; END_IF;
-IF E3 AND ABS(x3) > ABS(OVERRIDE) THEN OVERRIDE := X3; END_IF;
+IF E1 THEN _OVERRIDE := X1; END_IF;
+IF E2 AND ABS(x2) > ABS(_OVERRIDE) THEN _OVERRIDE := X2; END_IF;
+IF E3 AND ABS(x3) > ABS(_OVERRIDE) THEN _OVERRIDE := X3; END_IF;
 
 (* revision history
 hm	4.11.2007		rev 1.0
@@ -9267,7 +9271,7 @@ VAR_INPUT
 	K : REAL;
 	O : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	in1_min: REAL;
 	in1_max: REAL := 1000.0;
 	in2_min: REAL;
@@ -9324,7 +9328,7 @@ VAR_INPUT
 	K : REAL;
 	O : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	in1_min: REAL;
 	in1_max: REAL := 1000.0;
 	in2_min: REAL;
@@ -9389,7 +9393,7 @@ VAR_INPUT
 	K : REAL;
 	O : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	in1_min: REAL;
 	in1_max: REAL := 1000.0;
 	in2_min: REAL;
@@ -9546,7 +9550,7 @@ VAR_INPUT
 	K : REAL;
 	O : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	IN1_MIN: REAL;
 	IN1_MAX: REAL := 1000.0;
 	IN2_MIN: REAL;
@@ -9594,7 +9598,7 @@ VAR_INPUT
 	K : REAL;
 	O : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	IN1_MIN: REAL;
 	IN1_MAX: REAL := 1000.0;
 	IN2_MIN: REAL;
@@ -9649,7 +9653,7 @@ VAR_INPUT
 	K : REAL;
 	O : REAL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	in1_min: REAL;
 	in1_max: REAL := 1000.0;
 	in2_min: REAL;
@@ -10328,13 +10332,13 @@ END_FUNCTION
 FUNCTION LIST_ADD : BOOL
 VAR_INPUT
 	SEP : BYTE;
-	INS : STRING(LIST_LENGTH);
+	INS : STRING[LIST_LENGTH];
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
-	sx : STRING(1);
+	sx : STRING[1];
 END_VAR
 
 
@@ -10348,7 +10352,7 @@ die liste liegt als string von elementen vor die mit den zeichen SEP am anfang m
 
 *)
 (* @END_DECLARATION := '0' *)
-sx := CHR_TO_STRING(SEP);			(* convert separation character to string *)
+sx := CHR_TO_STRING[SEP];			(* convert separation character to string *)
 INS := CONCAT(sx, INS);					(* start element with separation character *)
 
 IF LEN(LIST) + LEN(INS) > LIST_LENGTH THEN
@@ -10377,10 +10381,10 @@ VAR_INPUT
 	SEP : BYTE;
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	read : INT := 1;
 	write : INT := 1;
 	last: BYTE;
@@ -10421,7 +10425,7 @@ hm	28. jun. 2008	rev 1.0
 	original release
 
 hm	19. jan. 2011	rev 1.1
-	changed string(255) to string(LIST_LENGTH)
+	changed STRING[255] to STRING[LIST_LENGTH]
 
 hm	21. mar. 2011	rev 2.0
 	all elements start with SEP
@@ -10435,19 +10439,19 @@ END_FUNCTION
 (* @PATH := '\/List Processing' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION LIST_GET : STRING(LIST_LENGTH)
+FUNCTION LIST_GET : STRING[LIST_LENGTH]
 VAR_INPUT
 	SEP : BYTE;
 	POS : INT;
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
 	i : INT := 1;
 	o : INT := 1;
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
-	po : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	po : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	cnt: INT := 0;
 	c: BYTE;
 END_VAR
@@ -10488,7 +10492,7 @@ hm	20. jun. 2008	rev 1.0
 	original release
 
 hm	19. jan. 2011	rev 1.1
-	changed string(255) to strring(LIST_LENGTH)
+	changed STRING[255] to strring(LIST_LENGTH)
 
 hm	21. mar. 2011	rev 2.0
 	all list elements start with SEP
@@ -10505,16 +10509,16 @@ FUNCTION LIST_INSERT : BOOL
 VAR_INPUT
 	SEP : BYTE;
 	POS : INT;
-	INS : STRING(LIST_LENGTH);
+	INS : STRING[LIST_LENGTH];
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	read : INT := 1;
 	cnt : INT := 1;
-	sx : STRING(1);
+	sx : STRING[1];
 END_VAR
 
 
@@ -10538,7 +10542,7 @@ ELSE
 	(* search for position *)
 	WHILE read < LIST_LENGTH DO
 		IF cnt >= POS THEN
-			sx := CHR_TO_STRING(SEP);
+			sx := CHR_TO_STRING[SEP];
 			INS := CONCAT(sx, INS);
 			LIST := INSERT(LIST, INS, read - 1);
 			LIST_INSERT := TRUE;
@@ -10563,7 +10567,7 @@ hm	17. dec. 2008	rev 1.1
 	changes name of function chr to chr_to_string
 
 hm	19. jan. 2011	rev 1.2
-	changed string(255) to string(LIST_LENGTH)
+	changed STRING[255] to STRING[LIST_LENGTH]
 
 hm	21. mar. 2011	rev 2.0
 	all list elements start with SEP
@@ -10582,10 +10586,10 @@ VAR_INPUT
 	SEP : BYTE;
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	pos: INT := 1;
 	c: BYTE;
 END_VAR
@@ -10621,7 +10625,7 @@ hm	16. oct. 2008	rev 1.1
 	fixed a problem where list_len would only work up to LIST_LENGTH
 
 hm	19. jan. 2001	rev 1.2
-	changed string(255) to string(LIST_LENGTH)
+	changed STRING[255] to STRING[LIST_LENGTH]
 
 hm	21. mar. 2011	rev 2.0
 	all list elements start with SEP
@@ -10641,16 +10645,16 @@ VAR_INPUT
 	RST : BOOL;
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR_OUTPUT
-	LEL : STRING(LIST_LENGTH);
+	LEL : STRING[LIST_LENGTH];
 	NUL : BOOL;
 END_VAR
 VAR
 	pos : INT := 1;
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
-	po : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	po : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	c: BYTE;
 	write: INT;
 END_VAR
@@ -10700,7 +10704,7 @@ hm	25. jun. 2008	rev 1.0
 	original release
 
 hm	19. jan. 2011	rev 1.1
-	changed string(255) to string(LIST_LENGTH)	
+	changed STRING[255] to STRING[LIST_LENGTH]	
 
 hm	21. mar. 2011	rev 2.0
 	all elements start with SEP
@@ -10714,20 +10718,20 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/List Processing' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION LIST_RETRIEVE : STRING(LIST_LENGTH)
+FUNCTION LIST_RETRIEVE : STRING[LIST_LENGTH]
 VAR_INPUT
 	SEP : BYTE;
 	POS : INT;
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
 	i :	INT;
 	o : INT := 1;
 	w : INT := 1;
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
-	po : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	po : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	cnt: INT := 0;
 	c: BYTE;
 END_VAR
@@ -10775,7 +10779,7 @@ hm	28. jun. 2008	rev 1.0
 	original release
 
 hm	19. jan. 2011	rev 1.1
-	changed string(255) to string(LIST_LENGTH)
+	changed STRING[255] to STRING[LIST_LENGTH]
 
 hm	21. mar. 2011	rev 2.0
 	all elements start with SEP
@@ -10788,17 +10792,17 @@ END_FUNCTION
 (* @PATH := '\/List Processing' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION LIST_RETRIEVE_LAST : STRING(LIST_LENGTH)
+FUNCTION LIST_RETRIEVE_LAST : STRING[LIST_LENGTH]
 VAR_INPUT
 	SEP : BYTE;
 END_VAR
 VAR_IN_OUT
-	LIST : STRING(LIST_LENGTH);
+	LIST : STRING[LIST_LENGTH];
 END_VAR
 VAR
 	i :	INT;
 	last : INT := 1;
-	pt : POINTER TO ARRAY[1..LIST_LENGTH] OF BYTE;
+	pt : REF_TO ARRAY[1..LIST_LENGTH] OF BYTE;
 	c: BYTE;
 END_VAR
 
@@ -12513,7 +12517,7 @@ VAR_INPUT
 	X : REAL;
 END_VAR
 VAR
-	pt : POINTER TO DWORD;
+	pt : REF_TO DWORD;
 	tmp : DWORD;
 END_VAR
 
@@ -12711,7 +12715,7 @@ VAR_INPUT
 	X : DWORD;
 END_VAR
 VAR
-	pt : POINTER TO REAL;
+	pt : REF_TO REAL;
 END_VAR
 
 (*
@@ -13015,7 +13019,7 @@ VAR_INPUT
 	X : REAL;
 END_VAR
 VAR
-	pt : POINTER TO DWORD;
+	pt : REF_TO DWORD;
 END_VAR
 
 (*
@@ -14081,7 +14085,7 @@ VAR_INPUT
 	E2 : BOOL;
 	E3 : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	T0, T1, T2, T3 : TIME;
 END_VAR
 VAR_OUTPUT
@@ -14169,7 +14173,7 @@ VAR_INPUT
 	E2 : BOOL;
 	E3 : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	C0, C1, C2, C3 : UINT;
 	O0, O1, O2, O3 : UINT;
 END_VAR
@@ -14232,7 +14236,7 @@ VAR_INPUT
 	wait3 : TIME;
 	delay3 : TIME;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	stop_on_error : BOOL;
 END_VAR
 VAR_OUTPUT
@@ -14395,7 +14399,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Logic\/generators' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK SEQUENCE_64
+FUNCTION_BLOCK SEQUENCE_64
 VAR_INPUT
 	START : BOOL;
 	SMAX : INT;
@@ -14490,7 +14494,7 @@ VAR_INPUT
 	wait7 : TIME;
 	delay7 : TIME;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	stop_on_error : BOOL;
 END_VAR
 VAR_OUTPUT
@@ -14722,7 +14726,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Logic\/generators' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK TMAX
+FUNCTION_BLOCK TMAX
 VAR_INPUT
 	IN : BOOL;
 	PT : TIME;
@@ -14779,7 +14783,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Logic\/generators' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK TMIN
+FUNCTION_BLOCK TMIN
 VAR_INPUT
 	IN : BOOL;
 	PT : TIME;
@@ -14817,7 +14821,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Logic\/generators' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK TOF_1
+FUNCTION_BLOCK TOF_1
 VAR_INPUT
 	IN : BOOL;
 	PT : TIME;
@@ -14920,7 +14924,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Logic\/generators' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK TP_1
+FUNCTION_BLOCK TP_1
 VAR_INPUT
 	IN : BOOL;
 	PT : TIME;
@@ -14975,7 +14979,7 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/Logic\/generators' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTIONBLOCK TP_1D
+FUNCTION_BLOCK TP_1D
 VAR_INPUT
 	IN : BOOL;
 	PT1 : TIME;
@@ -15432,7 +15436,7 @@ END_FUNCTION_BLOCK
 FUNCTION CRC_GEN : DWORD
 
 VAR_INPUT
-	PT : POINTER TO ARRAY[0..32000] OF BYTE;
+	PT : REF_TO ARRAY[0..32000] OF BYTE;
 	SIZE : INT;
 	PL : INT;
 	PN : DWORD;
@@ -15574,7 +15578,7 @@ FUNCTION_BLOCK MATRIX
 VAR_INPUT
 	x1, x2, x3, x4, X5 : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	Release : BOOL;
 END_VAR
 VAR_OUTPUT
@@ -15691,8 +15695,8 @@ VAR_INPUT
 	CB : BYTE;
 	E : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
-	PIN : STRING(8);
+VAR_INPUT (* CONSTANT *)
+	PIN : STRING[8];
 END_VAR
 VAR_OUTPUT
 	TP : BOOL;
@@ -15741,7 +15745,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_ABS : BOOL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -15782,7 +15786,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_ADD : BOOL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 	X : REAL;
 END_VAR
@@ -15824,7 +15828,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_INIT : BOOL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 	init : REAL;
 END_VAR
@@ -15875,7 +15879,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_MEDIAN : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -15951,7 +15955,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_MUL : BOOL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 	X : REAL;
 END_VAR
@@ -15993,7 +15997,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_SHUFFLE : BOOL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16044,7 +16048,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION _ARRAY_SORT : BOOL
 VAR_INPUT
-	PT : POINTER TO ARRAY[1..32000] OF REAL;
+	PT : REF_TO ARRAY[1..32000] OF REAL;
 	SIZE : UINT;
 END_VAR
 VAR
@@ -16241,7 +16245,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_AVG : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16290,7 +16294,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_GAV : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16339,7 +16343,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_HAV : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16387,7 +16391,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_MAX : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16428,7 +16432,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_MIN : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16471,7 +16475,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_SDV : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 
@@ -16508,7 +16512,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_SPR : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16558,7 +16562,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_SUM : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16601,7 +16605,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_TREND : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16656,7 +16660,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION ARRAY_VAR : REAL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -16715,7 +16719,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_SORTED : BOOL
 VAR_INPUT
-	pt : POINTER TO ARRAY[0..32000] OF REAL;
+	pt : REF_TO ARRAY[0..32000] OF REAL;
 	size : UINT;
 END_VAR
 VAR
@@ -22017,8 +22021,8 @@ VAR_INPUT
 	s0, s1, s2, s3, s4, s5, s6, s7 : BOOL;
 	DT_in : DT;
 END_VAR
-VAR_INPUT CONSTANT
-	a0, a1, a2, a3, a4, a5, a6, a7 : STRING(10);
+VAR_INPUT (* CONSTANT *)
+	a0, a1, a2, a3, a4, a5, a6, a7 : STRING[10];
 END_VAR
 VAR_OUTPUT
 	ESR_Flag : BOOL;
@@ -22155,8 +22159,8 @@ VAR_INPUT
 	R0, R1, R2, R3 : REAL;
 	DT_in : DT;
 END_VAR
-VAR_INPUT CONSTANT
-	a0, a1, a2, a3 : STRING(10);
+VAR_INPUT (* CONSTANT *)
+	a0, a1, a2, a3 : STRING[10];
 	s0, s1, s2, s3 : REAL;
 END_VAR
 VAR_OUTPUT
@@ -22166,7 +22170,7 @@ VAR_IN_OUT
 	ESR_Out: ARRAY [0..3] OF esr_data;
 END_VAR
 VAR
-	p0, p1, p2, p3 : POINTER TO DWORD;
+	p0, p1, p2, p3 : REF_TO DWORD;
 	x0, x1, x2, x3 : REAL;
 	tx: TIME;
 	cnt : INT;
@@ -22283,8 +22287,8 @@ VAR_INPUT
 	DT_in : DT;
 	Mode : BYTE := 3;
 END_VAR
-VAR_INPUT CONSTANT
-	a0, a1, a2, a3, a4, a5, a6, a7 : STRING(10);
+VAR_INPUT (* CONSTANT *)
+	a0, a1, a2, a3, a4, a5, a6, a7 : STRING[10];
 END_VAR
 VAR_OUTPUT
 	ESR_Flag : BOOL;
@@ -22435,7 +22439,7 @@ END_FUNCTION
 FUNCTION STATUS_TO_ESR : esr_data
 VAR_INPUT
 	status : BYTE;
-	adress : STRING(10);
+	adress : STRING[10];
 	DT_in : DT;
 	TS : TIME;
 END_VAR
@@ -22471,10 +22475,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION BIN_TO_BYTE : BYTE
 VAR_INPUT
-	BIN : STRING(12);
+	BIN : STRING[12];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -22524,10 +22528,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION BIN_TO_DWORD : DWORD
 VAR_INPUT
-	BIN : STRING(40);
+	BIN : STRING[40];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -22575,13 +22579,13 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION BYTE_TO_STRB : STRING(8)
+FUNCTION BYTE_TO_STRB : STRING[8]
 VAR_INPUT
 	IN : BYTE;
 END_VAR
 VAR
 	i: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 END_VAR
 
 (*
@@ -22625,7 +22629,7 @@ hm	15. dec 2007	rev 1.1
 	inprooved code for higher performance
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(8)
+	changed STRING to STRING[8]
 
 hm	20. jun. 2008	rev 1.3
 	performance improvement
@@ -22638,13 +22642,13 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION BYTE_TO_STRH : STRING(2)
+FUNCTION BYTE_TO_STRH : STRING[2]
 VAR_INPUT
 	IN : BYTE;
 END_VAR
 VAR
 	temp : BYTE;
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 END_VAR
 
 (*
@@ -22700,7 +22704,7 @@ hm	15 dec 2007		REV 1.2
 	changed code for higher performance
 
 hm	29. mar. 2008	rev 1.3
-	changed STRING to STRING(2)
+	changed STRING to STRING[2]
 *)
 END_FUNCTION
 
@@ -22709,12 +22713,12 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION CAPITALIZE : STRING(STRING_LENGTH)
+FUNCTION CAPITALIZE : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 	pos : INT;
 	L : INT;
 	first : BOOL := TRUE;
@@ -22744,7 +22748,7 @@ hm		4. mar 2008	rev 1.0
 	original release
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 
 hm	20. jun. 2008	rev 1.2
 	improved performance
@@ -22760,11 +22764,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION CHARCODE : BYTE
 VAR_INPUT
-	STR : STRING(10);
+	STR : STRING[10];
 END_VAR
 VAR
-	found: STRING(1);
-	search : STRING(10);
+	found: STRING[1];
+	search : STRING[10];
 	pos: INT;
 	i: INT;
 END_VAR
@@ -22815,7 +22819,7 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION CHARNAME : STRING(10)
+FUNCTION CHARNAME : STRING[10]
 VAR_INPUT
 	C : BYTE;
 END_VAR
@@ -22838,7 +22842,7 @@ the character itself is returned if no name is available for the character
 (* @END_DECLARATION := '0' *)
 IF C <> 0 THEN
 	(* construct search string from code followed by $ sign, also clear charname string*)
-	CHARNAME := CHR_TO_STRING(C);
+	CHARNAME := CHR_TO_STRING[C];
 	CHARNAME := CONCAT(CHARNAME,'&');
 	CHARNAME := CONCAT(';', CHARNAME);
 	WHILE pos = 0 AND (i < 4) DO
@@ -22851,7 +22855,7 @@ IF C <> 0 THEN
 		pos := FIND(CHARNAME, ';');
 		CHARNAME := LEFT(CHARNAME,pos - 1);
 	ELSE
-		CHARNAME := CHR_TO_STRING(C);
+		CHARNAME := CHR_TO_STRING[C];
 	END_IF;
 ELSE
 	CHARNAME := '';
@@ -22884,12 +22888,12 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION CHR_TO_STRING : STRING(1)
+FUNCTION CHR_TO_STRING : STRING[1]
 VAR_INPUT
 	C : BYTE;
 END_VAR
 VAR
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 END_VAR
 
 (*
@@ -22914,7 +22918,7 @@ hm	4. feb. 2008	rev 1.1
 	return string would not be terminated properly
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(1)
+	changed STRING to STRING[1]
 
 hm	17. dec. 2008	rev 1.3
 	changed name of function from chr to chr_to_string
@@ -22926,10 +22930,10 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION CLEAN : STRING(STRING_LENGTH)
+FUNCTION CLEAN : STRING[STRING_LENGTH]
 VAR_INPUT
-	IN : STRING(STRING_LENGTH);
-	CX : STRING(80);
+	IN : STRING[STRING_LENGTH];
+	CX : STRING[80];
 END_VAR
 VAR
 	pos: INT := 1;
@@ -22979,11 +22983,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION CODE : BYTE
 VAR_INPUT
-	STR : STRING(STRING_LENGTH);
+	STR : STRING[STRING_LENGTH];
 	POS : INT;
 END_VAR
 VAR
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 END_VAR
 
 (*
@@ -23008,7 +23012,7 @@ hm	9. mar. 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -23019,12 +23023,12 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION COUNT_CHAR : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 	chr : BYTE;
 END_VAR
 VAR
 	l: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -23052,7 +23056,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -23108,10 +23112,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION DEC_TO_BYTE : BYTE
 VAR_INPUT
-	DEC : STRING(10);
+	DEC : STRING[10];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -23159,10 +23163,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION DEC_TO_DWORD : DWORD
 VAR_INPUT
-	DEC : STRING(20);
+	DEC : STRING[20];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -23208,10 +23212,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION DEC_TO_INT : INT
 VAR_INPUT
-	DEC : STRING(10);
+	DEC : STRING[10];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	sign: BOOL;
@@ -23259,10 +23263,10 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION DEL_CHARS : STRING(STRING_LENGTH)
+FUNCTION DEL_CHARS : STRING[STRING_LENGTH]
 VAR_INPUT
-	IN : STRING(STRING_LENGTH);
-	CX : STRING(80);
+	IN : STRING[STRING_LENGTH];
+	CX : STRING[80];
 END_VAR
 VAR
 	pos: INT := 1;
@@ -23318,13 +23322,13 @@ VAR_INPUT
 	LANG : INT;
 END_VAR
 VAR CONSTANT
-	FILL : STRING(1) := '0';
-	BLANK : STRING(1) := ' ';
+	FILL : STRING[1] := '0';
+	BLANK : STRING[1] := ' ';
 END_VAR
 VAR
 	ly : INT;
 	dx: DATE;
-	fs: STRING(10);
+	fs: STRING[10];
 	td: TOD;
 	tmp : INT;
 	pos : INT;
@@ -23380,7 +23384,7 @@ WHILE pos > 0 DO
 		75 : (* letter K returns the weekday with all characters *)
 			fs := WEEKDAY_TO_STRING(DAY_OF_WEEK(dx), ly, 0);
 		76 : (* letter L returns AM or PM for the given DateTime *)
-			IF td >= TOD#12:00 THEN fs := 'PM'; ELSE fs := 'AM'; END_IF;
+			IF td >= TOD#12:00:00 THEN fs := 'PM'; ELSE fs := 'AM'; END_IF;
 		77 : (* letter M returns the hour in 1 or 2 digit form 0..24h *)
 			fs := INT_TO_STRING(HOUR(td));
 		78 : (* letter N returns the hour in exactly 2 digit form 0..24h *)
@@ -23389,11 +23393,11 @@ WHILE pos > 0 DO
 		79 : (* letter O returns the hour in 1 or 2 digit form 0..12h *)
 			tmp := HOUR(td) MOD 12;
 			IF tmp = 0 THEN tmp := 12; END_IF;
-			fs := INT_TO_STRING(tmp);
+			fs := INT_TO_STRING[tmp];
 		80 : (* letter P returns the hour in exactly 2 digit form 0..12h *)
 			tmp := HOUR(td) MOD 12;
 			IF tmp = 0 THEN tmp := 12; END_IF;
-			fs := INT_TO_STRING(tmp);
+			fs := INT_TO_STRING[tmp];
 			IF LEN(fs) < 2 THEN fs := CONCAT(FILL, fs); END_IF;
 		81 : (* letter Q returns the minute of the hour in 1 or two digit form *)
 			fs := INT_TO_STRING(MINUTE(td));
@@ -23406,9 +23410,9 @@ WHILE pos > 0 DO
 			fs := INT_TO_STRING(REAL_TO_INT(SECOND(td)));
 			IF LEN(fs) < 2 THEN fs := CONCAT(FILL, fs); END_IF;
 		85 : (* letter U returns the milliseconds in 1 to 3 digits *)
-			fs := INT_TO_STRING(MS);
+			fs := INT_TO_STRING[MS];
 		86 : (* letter V returns the milliseconds in exactly 3 digit form *)
-			fs := INT_TO_STRING(MS);
+			fs := INT_TO_STRING[MS];
 			fs := CONCAT('00',fs);
 			fs := RIGHT(fs, 3);
 		87 : (* letter W returns the day of the month with exactly 2 digits first digit is filled with blank if necessary *)
@@ -23438,12 +23442,12 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION DWORD_TO_STRB : STRING(32)
+FUNCTION DWORD_TO_STRB : STRING[32]
 VAR_INPUT
 	IN : DWORD;
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 END_VAR
 
@@ -23477,7 +23481,7 @@ hm		15.dec 2007	rev 1.1
 	changed code for better performance
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(32)
+	changed STRING to STRING[32]
 
 hm	20. jun. 2008	rev 1.3
 	performance improvement
@@ -23491,7 +23495,7 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION DWORD_TO_STRF : STRING(20)
+FUNCTION DWORD_TO_STRF : STRING[20]
 VAR_INPUT
 	IN : DWORD;
 	N : INT;
@@ -23515,7 +23519,7 @@ for example:	dword_to_strf(123,4) = '0123'
 (* @END_DECLARATION := '0' *)
 (* limit N to max 20 characters *)
 (* convert dword to string first and cut to length N *)
-DWORD_TO_STRF := FIX(DWORD_TO_STRING(in),LIMIT(0,N,20),48,1);
+DWORD_TO_STRF := FIX(DWORD_TO_STRING[in],LIMIT(0,N,20),48,1);
 
 
 (* revision history
@@ -23523,7 +23527,7 @@ hm	26. jan.2007	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(20)
+	changed STRING to STRING[20]
 	limit the output string to max 20 digits
 *)
 
@@ -23534,14 +23538,14 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION DWORD_TO_STRH : STRING(8)
+FUNCTION DWORD_TO_STRH : STRING[8]
 VAR_INPUT
 	IN : DWORD;
 END_VAR
 VAR
 	i : INT;
 	temp : BYTE;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 END_VAR
 
 (*
@@ -23598,7 +23602,7 @@ hm	15. dec. 2007	rev 1.2
 	changed code for better performance
 
 hm	29. mar. 2008	rev 1.3
-	changed STRING to STRING(8)
+	changed STRING to STRING[8]
 
 *)
 
@@ -23609,15 +23613,15 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION EXEC : STRING(STRING_LENGTH)
+FUNCTION EXEC : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
 	R1: REAL;
 	R2: REAL;
-	operator: STRING(10);
+	operator: STRING[10];
 END_VAR
 
 (*
@@ -23693,7 +23697,7 @@ hm	20. mar. 2008	rev 1.3
 	make sure the function always returns a real value in the form of x.y
 
 hm	29. mar. 2008	rev 1.4
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -23702,14 +23706,14 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION FILL : STRING(STRING_LENGTH)
+FUNCTION FILL : STRING[STRING_LENGTH]
 VAR_INPUT
 	C : BYTE;
 	L : INT;
 END_VAR
 VAR
 	i: INT;
-	sx: STRING(1);
+	sx: STRING[1];
 END_VAR
 
 (*
@@ -23721,7 +23725,7 @@ the function fill creates a string at length L of characters C.
 
 *)
 (* @END_DECLARATION := '0' *)
-Sx := CHR_TO_STRING(c);
+Sx := CHR_TO_STRING[c];
 (* limit L to maximum 80 characters the length of a standard string *)
 L := LIMIT(0,L,STRING_LENGTH);
 (* create a string of characters to be connected to str *)
@@ -23751,12 +23755,12 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FIND_CHAR : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 	pos : INT;
 END_VAR
 VAR
 	i: INT;
-	pt : POINTER TO ARRAY[1..255] OF BYTE;
+	pt : REF_TO ARRAY[1..255] OF BYTE;
 	stop: INT;
 	X: BYTE;
 END_VAR
@@ -23791,7 +23795,7 @@ hm	26. mar. 2008	rev 1.1
 	char will now accept extended ascii
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 
 hm	21. oct. 2008	rev 1.3
 	changes setup constants
@@ -23808,12 +23812,12 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FIND_CTRL : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 	pos : INT;
 END_VAR
 VAR
 	i: INT;
-	pt : POINTER TO ARRAY[1..255] OF BYTE;
+	pt : REF_TO ARRAY[1..255] OF BYTE;
 	stop: INT;
 	x: BYTE;
 END_VAR
@@ -23848,7 +23852,7 @@ hm	26. mar. 2008	rev 1.1
 	character 127 is now recognized as control
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -23859,12 +23863,12 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FIND_NONUM : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 	pos : INT;
 END_VAR
 VAR
 	i: INT;
-	pt : POINTER TO ARRAY[1..255] OF BYTE;
+	pt : REF_TO ARRAY[1..255] OF BYTE;
 	end: INT;
 	X: BYTE;
 END_VAR
@@ -23899,7 +23903,7 @@ hm	29. feb 2008	rev 1.1
 	added input pos to start search at position
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 
 hm	21. oct. 2008	rev 1.3
 	optimized code
@@ -23914,12 +23918,12 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FIND_NUM : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 	pos : INT;
 END_VAR
 VAR
 	i : INT;
-	pt : POINTER TO ARRAY[1..255] OF BYTE;
+	pt : REF_TO ARRAY[1..255] OF BYTE;
 	stop : INT;
 	X: BYTE;
 END_VAR
@@ -23954,7 +23958,7 @@ hm	29. feb 2008	rev 1.1
 	added input pos to start search at position
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 
 *)
 END_FUNCTION
@@ -23966,8 +23970,8 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FINDB : INT
 VAR_INPUT
-	str1 : STRING(STRING_LENGTH);
-	str2 : STRING(STRING_LENGTH);
+	str1 : STRING[STRING_LENGTH];
+	str2 : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
@@ -24005,7 +24009,7 @@ hm	29. feb 2008	rev 1.2
 	added findb := 0 for compatibility reasons
 
 hm	29. mar. 2008	rev 1.3
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -24016,11 +24020,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FINDB_NONUM : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 END_VAR
 
 (*
@@ -24052,7 +24056,7 @@ hm	29. feb 2008	rev 1.1
 	improved performance
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 
 hm	21. oct. 2008	rev 1.3
 	optimized code
@@ -24066,11 +24070,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FINDB_NUM : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 END_VAR
 
 (*
@@ -24101,7 +24105,7 @@ hm	29. feb 2008	rev 1.1
 	improved performance
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -24112,8 +24116,8 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FINDP : INT
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
-	src : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
+	src : STRING[STRING_LENGTH];
 	pos: INT;
 END_VAR
 VAR
@@ -24152,7 +24156,7 @@ hm	29. feb 2008	rev 1.1
 	ADDED MAX(pos,1) in loop initialization
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)	
 
 END_FUNCTION
@@ -24162,16 +24166,16 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION FIX : STRING(STRING_LENGTH)
+FUNCTION FIX : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 	L : INT;
 	C : BYTE;
 	M : INT;
 END_VAR
 VAR
 	N : INT;
-	SX: STRING(STRING_LENGTH);
+	SX: STRING[STRING_LENGTH];
 END_VAR
 
 (*
@@ -24225,10 +24229,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FLOAT_TO_REAL : REAL
 VAR_INPUT
-	FLT : STRING(20);
+	FLT : STRING[20];
 END_VAR
 VAR
-	pt : POINTER TO ARRAY[1..20] OF BYTE;
+	pt : REF_TO ARRAY[1..20] OF BYTE;
 	i: INT;
 	X: BYTE;
 	sign: INT := 1;
@@ -24321,7 +24325,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FSTRING_TO_BYTE : BYTE
 VAR_INPUT
-	IN : STRING(12);
+	IN : STRING[12];
 END_VAR
 
 
@@ -24367,16 +24371,16 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FSTRING_TO_DT : DT
 VAR_INPUT
-	SDT : STRING(60);
-	FMT : STRING(60);
+	SDT : STRING[60];
+	FMT : STRING[60];
 END_VAR
 VAR CONSTANT
-	ignore: STRING(1) := '*';  (* ignore character is * *)
-	fchar : STRING(1) := '#';  (* format character is # *)
+	ignore: STRING[1] := '*';  (* ignore character is * *)
+	fchar : STRING[1] := '#';  (* format character is # *)
 END_VAR
 VAR
-	c: STRING(1);
-	tmp: STRING(20);
+	c: STRING[1];
+	tmp: STRING[20];
 	end: INT;
 	dy : INT := 1970;
 	dm : INT := 1;
@@ -24462,7 +24466,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FSTRING_TO_DWORD : DWORD
 VAR_INPUT
-	IN : STRING(40);
+	IN : STRING[40];
 END_VAR
 
 
@@ -24510,7 +24514,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FSTRING_TO_MONTH : INT
 VAR_INPUT
-	MTH : STRING(20);
+	MTH : STRING[20];
 	LANG : INT;
 END_VAR
 VAR
@@ -24563,7 +24567,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FSTRING_TO_WEEK : BYTE
 VAR_INPUT
-	WEEK : STRING(60);
+	WEEK : STRING[60];
 	LANG : INT;
 END_VAR
 VAR
@@ -24607,11 +24611,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION FSTRING_TO_WEEKDAY : INT
 VAR_INPUT
-	WDAY : STRING(20);
+	WDAY : STRING[20];
 	LANG : INT;
 END_VAR
 VAR
-	tmp: STRING(2);
+	tmp: STRING[2];
 	i: INT;
 	ly: INT;
 END_VAR
@@ -24661,10 +24665,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION HEX_TO_BYTE : BYTE
 VAR_INPUT
-	HEX : STRING(5);
+	HEX : STRING[5];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -24716,10 +24720,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION HEX_TO_DWORD : DWORD
 VAR_INPUT
-	Hex : STRING(20);
+	Hex : STRING[20];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -24763,10 +24767,10 @@ hm 	4. mar 2008		rev 1.2
 	added support for a..f and return 0 for invalid string
 
 hm	29. mar. 2008	rev 1.3
-	changed STRING to STRING(8)
+	changed STRING to STRING[8]
 
 hm	18. jun. 2008	rev 1.4
-	changed input hex to STRING(20)
+	changed input hex to STRING[20]
 	function now ignores wrong characters
 *)	
 
@@ -24779,11 +24783,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_ALNUM : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -24813,7 +24817,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -24824,11 +24828,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_ALPHA : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -24858,7 +24862,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -24869,8 +24873,8 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_CC : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
-	cmp : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
+	cmp : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
@@ -24899,7 +24903,7 @@ hm	19. mar 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -24910,11 +24914,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_CTRL : BOOL
 VAR_INPUT
-	STR : STRING(STRING_LENGTH);
+	STR : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -24944,7 +24948,7 @@ hm	29. feb. 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -24955,11 +24959,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_HEX : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -24989,7 +24993,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -25000,11 +25004,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_LOWER : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	l: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -25034,7 +25038,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -25045,8 +25049,8 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_NCC : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
-	cmp : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
+	cmp : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
@@ -25075,7 +25079,7 @@ hm	19. mar 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -25086,11 +25090,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_NUM : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L : INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -25120,7 +25124,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -25131,11 +25135,11 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION IS_UPPER : BOOL
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L: INT;
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 END_VAR
 
@@ -25165,7 +25169,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -25369,12 +25373,12 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION LOWERCASE : STRING(STRING_LENGTH)
+FUNCTION LOWERCASE : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
-	PT : POINTER TO BYTE;
+	PT : REF_TO BYTE;
 	pos: INT;
 	l: INT;
 END_VAR
@@ -25408,7 +25412,7 @@ hm	6. mar. 2008	rev 1.2
 	added support for exteded Ascii
 
 hm	29. mar. 2008	rev 1.3
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)	
 
 END_FUNCTION
@@ -25420,17 +25424,17 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK MESSAGE_4R
 VAR_INPUT
-	M0 : STRING(STRING_LENGTH);
-	M1 : STRING(STRING_LENGTH);
-	M2 : STRING(STRING_LENGTH);
-	M3 : STRING(STRING_LENGTH);
+	M0 : STRING[STRING_LENGTH];
+	M1 : STRING[STRING_LENGTH];
+	M2 : STRING[STRING_LENGTH];
+	M3 : STRING[STRING_LENGTH];
 	MM : INT := 3;
 	ENQ : BOOL := TRUE;
 	CLK : BOOL := TRUE;
 	T1 : TIME := T#3s;
 END_VAR
 VAR_OUTPUT
-	MX : STRING(STRING_LENGTH);
+	MX : STRING[STRING_LENGTH];
 	MN : INT;
 	TR : BOOL;
 END_VAR
@@ -25504,18 +25508,18 @@ VAR_INPUT
 	IN7 : BOOL;
 	IN8 : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
-	S1 : STRING(STRING_LENGTH);
-	S2 : STRING(STRING_LENGTH);
-	S3 : STRING(STRING_LENGTH);
-	S4 : STRING(STRING_LENGTH);
-	S5 : STRING(STRING_LENGTH);
-	S6 : STRING(STRING_LENGTH);
-	S7 : STRING(STRING_LENGTH);
-	S8 : STRING(STRING_LENGTH);
+VAR_INPUT (* CONSTANT *)
+	S1 : STRING[STRING_LENGTH];
+	S2 : STRING[STRING_LENGTH];
+	S3 : STRING[STRING_LENGTH];
+	S4 : STRING[STRING_LENGTH];
+	S5 : STRING[STRING_LENGTH];
+	S6 : STRING[STRING_LENGTH];
+	S7 : STRING[STRING_LENGTH];
+	S8 : STRING[STRING_LENGTH];
 END_VAR
 VAR_OUTPUT
-	M : STRING(STRING_LENGTH);
+	M : STRING[STRING_LENGTH];
 END_VAR
 
 
@@ -25556,7 +25560,7 @@ hm	26.12.2007		rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 
 END_FUNCTION_BLOCK
@@ -25566,13 +25570,13 @@ END_FUNCTION_BLOCK
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION MIRROR : STRING(STRING_LENGTH)
+FUNCTION MIRROR : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
-	pi : POINTER TO ARRAY[1..255] OF BYTE;
-	po : POINTER TO BYTE;
+	pi : REF_TO ARRAY[1..255] OF BYTE;
+	po : REF_TO BYTE;
 	lx: INT;
 	i: INT;
 END_VAR
@@ -25602,7 +25606,7 @@ hm	4. feb. 2008	rev 1.0
 	original release
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)	
 
 END_FUNCTION
@@ -25612,7 +25616,7 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION MONTH_TO_STRING : STRING(10)
+FUNCTION MONTH_TO_STRING : STRING[10]
 VAR_INPUT
 	MTH : INT;
 	LANG : INT;
@@ -25659,10 +25663,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION OCT_TO_BYTE : BYTE
 VAR_INPUT
-	OCT : STRING(10);
+	OCT : STRING[10];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -25709,10 +25713,10 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION OCT_TO_DWORD : DWORD
 VAR_INPUT
-	OCT : STRING(20);
+	OCT : STRING[20];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	i: INT;
 	X: BYTE;
 	stop: INT;
@@ -25756,11 +25760,11 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION REAL_TO_STRF : STRING(20)
+FUNCTION REAL_TO_STRF : STRING[20]
 VAR_INPUT
 	IN : REAL;
 	N : INT;
-	D : STRING(1);
+	D : STRING[1];
 END_VAR
 VAR
 	O: REAL;
@@ -25810,7 +25814,7 @@ hm	20. mar. 2008	rev 1.4
 	changed trunc to real_to_dint because trunc was generating wrong values on wago 842
 
 hm	29. mar. 2008	rev 1.5
-	changed STRING to STRING(20)
+	changed STRING to STRING[20]
 
 hm	4. apr. 2008	rev 1.6
 	added variable O to avoid an error uner CoDeSys SP PLCWinNT V2.4
@@ -25829,11 +25833,11 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION REPLACE_ALL : STRING(STRING_LENGTH)
+FUNCTION REPLACE_ALL : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
-	src : STRING(STRING_LENGTH);
-	rep : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
+	src : STRING[STRING_LENGTH];
+	rep : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
@@ -25864,7 +25868,7 @@ hm	4. feb. 2008	rev 1.0
 	original release
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)	
 
 END_FUNCTION
@@ -25874,15 +25878,15 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION REPLACE_CHARS : STRING(STRING_LENGTH)
+FUNCTION REPLACE_CHARS : STRING[STRING_LENGTH]
 VAR_INPUT
-	STR : STRING(STRING_LENGTH);
+	STR : STRING[STRING_LENGTH];
 	SRC : STRING;
 	REP : STRING;
 END_VAR
 VAR
 	a, b : INT;
-	c: STRING(1);
+	c: STRING[1];
 	stp: INT;
 END_VAR
 
@@ -25930,17 +25934,17 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION REPLACE_UML : STRING(STRING_LENGTH)
+FUNCTION REPLACE_UML : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	L : INT;
-	pt : POINTER TO BYTE;
-	pto : POINTER TO BYTE;
-	ptm : POINTER TO BYTE;
-	pt1, pt2 : POINTER TO BYTE;
-	su : STRING(2);
+	pt : REF_TO BYTE;
+	pto : REF_TO BYTE;
+	ptm : REF_TO BYTE;
+	pt1, pt2 : REF_TO BYTE;
+	su : STRING[2];
 	pos : INT;
 END_VAR
 
@@ -25988,7 +25992,7 @@ hm	29. feb 2008	rev 1.0
 	original version
 
 hm	29. mar. 2008	rev 1.1
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 	new code to avoid pointer out of range
 	use new function to_uml
 *)
@@ -26007,11 +26011,11 @@ VAR_INPUT
 END_VAR
 
 VAR_IN_OUT
-	Text : STRING(STRING_LENGTH);
+	Text : STRING[STRING_LENGTH];
 END_VAR
 
 VAR_OUTPUT
-	Display : STRING(STRING_LENGTH);
+	Display : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	delay : TP;
@@ -26053,7 +26057,7 @@ hm	15. dec. 2007	rev 1.1
 	step now starts at 1 instaed of 0
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION_BLOCK
 
@@ -26103,7 +26107,7 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION TO_UML : STRING(2)
+FUNCTION TO_UML : STRING[2]
 VAR_INPUT
 	IN : BYTE;
 END_VAR
@@ -26135,7 +26139,7 @@ CASE in OF
 	252:	(* � *)
 		TO_UML := 'ue';
 ELSE
-	TO_UML := CHR_TO_STRING(IN);
+	TO_UML := CHR_TO_STRING[IN];
 END_CASE;
 
 
@@ -26198,13 +26202,13 @@ hm 16. jan 2009	rev 1.3
 END_FUNCTION
 
 
-(* @NESTEDCOMMENTS := 'Yes' *)
-(* @PATH := '\/String' *)
-(* @OBJECTFLAGS := '0, 8' *)
-(* @SYMFILEFLAGS := '2048' *)
-FUNCTION TRIM : STRING(STRING_LENGTH)
+/* (* @NESTEDCOMMENTS := 'Yes' *) */
+/* (* @PATH := '\/String' *) */
+/* (* @OBJECTFLAGS := '0, 8' *) */
+/* (* @SYMFILEFLAGS := '2048' *) */
+FUNCTION TRIM : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
@@ -26234,7 +26238,7 @@ hm	20. mar. 2008	rev 1.1
 	avoid to call replace with pos = 0 because some systems will produce an error
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -26243,9 +26247,9 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION TRIM1 : STRING(STRING_LENGTH)
+FUNCTION TRIM1 : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
 	pos: INT;
@@ -26279,7 +26283,7 @@ hm	20. mar. 2008	rev 1.1
 	avoid to call replace with pos = 0 because some systems will produce an error
 
 hm	29. mar. 2008	rev 1.2
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 *)
 END_FUNCTION
 
@@ -26288,9 +26292,9 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION TRIME : STRING(string_length)
+FUNCTION TRIME : STRING[string_length]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 
 
@@ -26327,12 +26331,12 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION UPPERCASE : STRING(STRING_LENGTH)
+FUNCTION UPPERCASE : STRING[STRING_LENGTH]
 VAR_INPUT
-	str : STRING(STRING_LENGTH);
+	str : STRING[STRING_LENGTH];
 END_VAR
 VAR
-	pt : POINTER TO BYTE;
+	pt : REF_TO BYTE;
 	pos: INT;
 	l: INT;
 END_VAR
@@ -26366,7 +26370,7 @@ hm	6. mar. 2008	rev 1.2
 	added support for exteded Ascii
 
 hm	29. mar. 2008	rev 1.3
-	changed STRING to STRING(STRING_LENGTH)
+	changed STRING to STRING[STRING_LENGTH]
 
 *)	
 
@@ -26377,7 +26381,7 @@ END_FUNCTION
 (* @PATH := '\/String' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
-FUNCTION WEEKDAY_TO_STRING : STRING(10)
+FUNCTION WEEKDAY_TO_STRING : STRING[10]
 VAR_INPUT
 	WDAY : INT;
 	LANG : INT;
@@ -27028,7 +27032,7 @@ VAR_INPUT
 	SDT : DT;
 	DSI : BOOL;
 END_VAR
-VAR_INPUT CONSTANT
+VAR_INPUT (* CONSTANT *)
 	SYNC_TIMEOUT : TIME := t#2m;
 	TIME_OFFSET : INT := 1;
 	DST_EN : BOOL := TRUE;
@@ -27583,7 +27587,7 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	Y : BOOL;
-	NAME : STRING(30);
+	NAME : STRING[30];
 END_VAR
 VAR
 	i : INT;
@@ -27594,7 +27598,7 @@ VAR
 	lday: DINT;
 	check : HOLIDAY_DATA;
 	y_int : BOOL;
-	name_int : STRING(30);
+	name_int : STRING[30];
 END_VAR
 VAR_IN_OUT
 	ELIST : ARRAY[0..49] OF HOLIDAY_DATA;
@@ -27667,7 +27671,7 @@ VAR CONSTANT
 END_VAR
 VAR_OUTPUT
 	Y : BOOL;
-	NAME : STRING(30);
+	NAME : STRING[30];
 END_VAR
 VAR
 	last_active : DATE;
@@ -29609,7 +29613,7 @@ STRUCT
 	OFFSET : INT;				(* Time Zone Offset for Local time in minutes *)
 	DST_EN : BOOL;				(* daylight savings time enable *)
 	DST_ON : BOOL;				(* true when daylight savings time os on *)
-	NAME : STRING(5);			(* name of time zone *)
+	NAME : STRING[5];			(* name of time zone *)
 	LANGUAGE : INT;			(* location number pls see location setup *)
 	LONGITUDE : REAL;			(* longitude of current location *)
 	LATITUDE : REAL;			(* latitude of current location *)
@@ -29621,7 +29625,7 @@ STRUCT
 	SUN_VER : REAL;			(* sun angle vertical above horizon in degrees *)
 	NIGHT : BOOL;				(* true between sun_set and sun_rise *)
 	HOLIDAY : BOOL;			(* true when holiday *)
-	HOLY_NAME : STRING(30);	(* name of holiday *)
+	HOLY_NAME : STRING[30];	(* name of holiday *)
 	WORK_WEEK : INT;			(* current work week *)
 END_STRUCT
 END_TYPE
@@ -29668,21 +29672,21 @@ STRUCT
 	(* Language Setup *)
 	DEFAULT : INT := 1; (* 1=english, 2=german 3=french *)
 	LMAX : INT := 3;
-	WEEKDAYS : ARRAY[1..3, 1..7] OF STRING(10) :=	'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
+	WEEKDAYS : ARRAY[1..3, 1..7] OF STRING[10] :=	['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
 													'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag',
-													'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche';
-	WEEKDAYS2 : ARRAY[1..3, 1..7] OF STRING(2) :=	'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
+													'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+	WEEKDAYS2 : ARRAY[1..3, 1..7] OF STRING[2] :=	['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
 													'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So',
-													'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di';
-	MONTHS : ARRAY[1..3, 1..12] OF STRING(10) :=	'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
+													'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
+	MONTHS : ARRAY[1..3, 1..12] OF STRING[10] :=	['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',
 													'Januar', 'Februar', 'M�rz', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
-													'Janvier', 'F�vrier', 'mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao�t', 'Septembre', 'Octobre', 'Novembre', 'Decembre';
-	MONTHS3 : ARRAY[1..3, 1..12] OF STRING(3) :=	'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+													'Janvier', 'F�vrier', 'mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao�t', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+	MONTHS3 : ARRAY[1..3, 1..12] OF STRING[3] :=	['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 													'Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez',
-													'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec';
-	DIRS : ARRAY[1..3,0..15] OF STRING(3) :=		'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW',
+													'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'];
+	DIRS : ARRAY[1..3,0..15] OF STRING[3] :=		['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW',
 													'N', 'NNO', 'NO', 'ONO', 'O', 'OSO', 'SO', 'SSO', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW',
-													'N', 'NNO', 'NO', 'ONO', 'O', 'OSO', 'SO', 'SSO', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW';
+													'N', 'NNO', 'NO', 'ONO', 'O', 'OSO', 'SO', 'SSO', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
 END_STRUCT
 END_TYPE
 
@@ -29709,7 +29713,7 @@ STRUCT
 	LMAX : INT := 5;
 
 	(* language spoken in the location *)
-	LANGUAGE : ARRAY[1..5] OF INT := 2, 2, 3, 2, 2;
+	LANGUAGE : ARRAY[1..5] OF INT := [2, 2, 3, 2, 2];
 
 END_STRUCT
 END_TYPE
@@ -29743,7 +29747,7 @@ STRUCT
 	E : REAL := 	2.71828182845904523536028747135266249;		(* Euler constant e *)
 	E_INV : REAL := 0.367879441171442;							(* 1 / e *)
 	SQ2 : REAL :=	1.4142135623731;							(* Wurzel von 2 *)
-	FACTS : ARRAY[0..12] OF DINT := 1,1,2,6,24,120,720,5040,40320,362880,3628800,39916800,479001600;
+	FACTS : ARRAY[0..12] OF DINT := [1,1,2,6,24,120,720,5040,40320,362880,3628800,39916800,479001600];
 END_STRUCT
 END_TYPE
 
@@ -29791,12 +29795,12 @@ TYPE CONSTANTS_SETUP :
 STRUCT
 	(* setup Parameters *)
 	EXTENDED_ASCII : BOOL := TRUE;
-	CHARNAMES : ARRAY[1..4] OF STRING(253) := ';"&quot;&&amp;<&lt;>&gt;�&euro;�&nbsp;�&iexcl;�&cent;�&pound;�&curren;�&yen;�&brvbar;�&sect;�&uml;�&copy;�&ordf;�&laquo;�&not;�&shy;�&reg;�&macr;�&deg;�&plusmn;�&sup2;�&sup3;�&acute;�&micro;�&para;�&middot;�&cedil;�&sup1;�&ordm;�&raquo;�&frac14;�&Ucirc;',
+	CHARNAMES : ARRAY[1..4] OF STRING[253] := [';"&quot;&&amp;<&lt;>&gt;�&euro;�&nbsp;�&iexcl;�&cent;�&pound;�&curren;�&yen;�&brvbar;�&sect;�&uml;�&copy;�&ordf;�&laquo;�&not;�&shy;�&reg;�&macr;�&deg;�&plusmn;�&sup2;�&sup3;�&acute;�&micro;�&para;�&middot;�&cedil;�&sup1;�&ordm;�&raquo;�&frac14;�&Ucirc;',
 		';�&frac34;�&iquest;�&Agrave;�&Aacute;�&Acirc;�&Atilde;�&Auml;�&Aring;�&AElig;�&Ccedil;�&Egrave;�&Eacute;�&Ecirc;�&Euml;�&Igrave;�&Iacute;�&Icirc;�&Iuml;�&ETH;�&Ntilde;�&Ograve;�&Oacute;�&Ocirc;�&Otilde;�&Ouml;�&times;�&Oslash;�&Ugrave;�&Uacute;�&frac12;',
 		';�&Uuml;�&Yacute;�&THORN;�&szlig;�&agrave;�&aacute;�&acirc;�&atilde;�&auml;�&aring;�&aelig;�&ccedil;�&egrave;�&eacute;�&ecirc;�&euml;�&igrave;�&iacute;�&icirc;�&iuml;�&eth;�&ntilde;�&ograve;�&oacute;�&ocirc;�&otilde;�&ouml;�&divide;�&oslash;�&ugrave;',
-		';�&uacute;�&ucirc;�&uuml;�&yacute;�&thorn;�&yuml;';
-	MTH_OFS : ARRAY[1..12] OF INT := 0,31,59,90,120,151,181,212,243,273,304,334;
-	DECADES : ARRAY[0..8] OF REAL := 1.0,10.0,100.0,1000.0,10000.0,10000.0,100000.0,1000000.0,10000000.0;
+		';�&uacute;�&ucirc;�&uuml;�&yacute;�&thorn;�&yuml;'];
+	MTH_OFS : ARRAY[1..12] OF INT := [0,31,59,90,120,151,181,212,243,273,304,334];
+	DECADES : ARRAY[0..8] OF REAL := [1.0,10.0,100.0,1000.0,10000.0,10000.0,100000.0,1000000.0,10000000.0];
 END_STRUCT
 END_TYPE
 
@@ -29813,7 +29817,7 @@ hm	24.10.2008	rev 1.0
 TYPE ESR_DATA :
 STRUCT
 	TYP : BYTE;
-	ADRESS : STRING(10);
+	ADRESS : STRING[10];
 	DS : DT;
 	TS : TIME;
 	DATA : ARRAY[0..7] OF BYTE;
@@ -29844,7 +29848,7 @@ END_TYPE
 (* @OBJECTFLAGS := '0, 8' *)
 TYPE HOLIDAY_DATA :
 STRUCT
-	NAME : STRING(30);
+	NAME : STRING[30];
 	DAY : SINT;
 	MONTH : SINT;
 	USE : SINT;
@@ -30142,22 +30146,22 @@ EXPORT : 0
 NUMOFCONNECTIONS : 0
 *)
 
-/* (* @NESTEDCOMMENTS := 'Yes' *) */
-/* (* @GLOBAL_VARIABLE_LIST := 'Setup_Data' *) */
-/* (* @PATH := '' *) */
-/* (* @OBJECTFLAGS := '0, 8' *) */
-/* (* @SYMFILEFLAGS := '4096' *) */
-/* VAR_GLOBAL RETAIN */
+(* @NESTEDCOMMENTS := 'Yes' *)
+(* @GLOBAL_VARIABLE_LIST := 'Setup_Data' *)
+(* @PATH := '' *)
+(* @OBJECTFLAGS := '0, 8' *)
+(* @SYMFILEFLAGS := '4096' *)
+VAR_GLOBAL RETAIN
 
-/* END_VAR */
+END_VAR
 
-/* (* @OBJECT_END := 'Setup_Data' *) */
-/* (* @CONNECTIONS := Setup_Data */
-/* FILENAME : '' */
-/* FILETIME : 0 */
-/* EXPORT : 0 */
-/* NUMOFCONNECTIONS : 0 */
-/* *) */
+(* @OBJECT_END := 'Setup_Data' *)
+(* @CONNECTIONS := Setup_Data
+FILENAME : ''
+FILETIME : 0
+EXPORT : 0
+NUMOFCONNECTIONS : 0
+*)
 
 /* LIBRARY */
 /* Standard.lib 4.10.05 11:14:46 */
