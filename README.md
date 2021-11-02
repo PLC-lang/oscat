@@ -19,6 +19,7 @@ To avoid errors, the following __breaking__ changes were made
 - `VAR_INPUT CONSANT` was changed to `VAR_INPUT`
 - `OVERRIDE` was renamed to `_OVERRIDE`
 _ `BUFFER` functions were disabled (PLC-lang/rusty#353)
+- `TIME` was renamed to `_TIME` (PLC-lang/rusty#357)
 
 
 ### Standard Functions

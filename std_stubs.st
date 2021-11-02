@@ -418,7 +418,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Concatenation of two strings
 ******************************************************************************)
-FUNCTION CONCAT : STRING[1023]
+@EXTERNAL FUNCTION CONCAT : STRING[1023]
 VAR_INPUT
 	STR1:STRING[1023];
 	STR2:STRING[1023];
@@ -449,7 +449,7 @@ Output:
   - CV: Current Counter Value 
 Return: Output is used as return value.
 ******************************************************************************)
-FUNCTION_BLOCK CTD
+@EXTERNAL FUNCTION_BLOCK CTD
 VAR_INPUT
 	CD: BOOL;
 	LOAD: BOOL;
@@ -475,7 +475,7 @@ Output:
   - CV:  Current Counter Value 
 Return: Output variables are used as Return.
 ******************************************************************************)
-FUNCTION_BLOCK CTU
+@EXTERNAL FUNCTION_BLOCK CTU
 VAR_INPUT
 	CU: BOOL;
 	RESET: BOOL;
@@ -504,7 +504,7 @@ Output:
   - CV:  Current Counter Value 
 Return: Output is used as return value.
 ******************************************************************************)
-FUNCTION_BLOCK CTUD
+@EXTERNAL FUNCTION_BLOCK CTUD
 VAR_INPUT
 	CU: BOOL;
 	CD: BOOL;
@@ -702,7 +702,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Deletes character of the string
 ******************************************************************************)
-FUNCTION DELETE : STRING[1023]
+@EXTERNAL FUNCTION DELETE : STRING[1023]
 VAR_INPUT
 	STR: STRING[1023];
 	LEN: INT;
@@ -1274,7 +1274,7 @@ Output:
   - Q:  Edge detected 
 Return: Output variable is used for return.
 ******************************************************************************)
-FUNCTION_BLOCK F_TRIG
+@EXTERNAL FUNCTION_BLOCK F_TRIG
 VAR_INPUT
 	CLK: BOOL;
 END_VAR
@@ -1290,7 +1290,7 @@ END_FUNCTION_BLOCK
 Description: Find the character position of the beginning of the first 
     occurence of STR2 in STR1. 
 ******************************************************************************)
-FUNCTION FIND : INT
+@EXTERNAL FUNCTION FIND : INT
 VAR_INPUT
 	STR1:STRING[1023];
 	STR2:STRING[1023];
@@ -1300,7 +1300,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Insert substring at the given position
 ******************************************************************************)
-FUNCTION INSERT:STRING[1023]
+@EXTERNAL FUNCTION INSERT:STRING[1023]
 VAR_INPUT
 	STR1:STRING[1023];
 	STR2:STRING[1023];
@@ -1487,7 +1487,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Extracts the leftmost characters
 ******************************************************************************)
-FUNCTION LEFT : STRING[1023]
+@EXTERNAL FUNCTION LEFT : STRING[1023]
 VAR_INPUT
 	STR:STRING[1023];
 	SIZE:INT;
@@ -1497,7 +1497,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Gets length of string
 ******************************************************************************)
-FUNCTION LEN : INT
+@EXTERNAL FUNCTION LEN : INT
 VAR_INPUT
 	STR:STRING[1023];
 END_VAR
@@ -1741,7 +1741,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Extracts substring of the source string
 ******************************************************************************)
-FUNCTION MID : STRING[1023]
+@EXTERNAL FUNCTION MID : STRING[1023]
 VAR_INPUT
 	STR:STRING[1023];
 	LEN:INT;
@@ -1807,7 +1807,7 @@ Output:
   - Q:  Edge detected 
 Return: Output variable are used for return.
 ******************************************************************************)
-FUNCTION_BLOCK R_TRIG
+@EXTERNAL FUNCTION_BLOCK R_TRIG
 VAR_INPUT
 	CLK: BOOL;
 END_VAR
@@ -1998,7 +1998,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Replaces in the source string the given sub string
 ******************************************************************************)
-FUNCTION REPLACE : STRING[1023]
+@EXTERNAL FUNCTION REPLACE : STRING[1023]
 VAR_INPUT
 	STR1:STRING[1023];
 	STR2:STRING[1023];
@@ -2010,7 +2010,7 @@ END_FUNCTION
 (******************************************************************************
 Description: Extracting rightmost characters
 ******************************************************************************)
-FUNCTION RIGHT : STRING[1023]
+@EXTERNAL FUNCTION RIGHT : STRING[1023]
 VAR_INPUT
 	STR:STRING[1023];
 	SIZE:INT;
@@ -2062,7 +2062,7 @@ Output:
   - Q1: Result of bistable function 
 Return: Output variable used as return value.
 ******************************************************************************)
-FUNCTION_BLOCK RS
+@EXTERNAL FUNCTION_BLOCK RS
 VAR_INPUT
 	SET: 	BOOL;
 	RESET1: BOOL;
@@ -2351,7 +2351,7 @@ Output:
   - Q1: Result of Bistable function. 
 Return: Output is used as return
 ******************************************************************************)
-FUNCTION_BLOCK SR
+@EXTERNAL FUNCTION_BLOCK SR
 VAR_INPUT
 	SET1: BOOL;	
 	RESET: BOOL;
@@ -2555,7 +2555,7 @@ END_FUNCTION
  * Returns the time passed by since system start in milliseconds
  * 
 *************************)
-@EXTERNAL FUNCTION TIME : TIME
+@EXTERNAL FUNCTION _TIME : TIME
 
 END_FUNCTION
 
@@ -2921,7 +2921,7 @@ Output:
   - ET: Elapsed time 
 Return: Output variables are used for return.
 ******************************************************************************)
-FUNCTION_BLOCK TOF
+@EXTERNAL FUNCTION_BLOCK TOF
 VAR_INPUT
 	IN: BOOL;
 	PT:TIME;
@@ -2939,7 +2939,7 @@ END_FUNCTION_BLOCK
 (******************************************************************************
 Description: convert string to lowercase. 
 ******************************************************************************)
-FUNCTION TOLOWERCASE : STRING[1023]
+@EXTERNAL FUNCTION TOLOWERCASE : STRING[1023]
 VAR_INPUT
 	STR: STRING[1023];
 END_VAR
@@ -2955,7 +2955,7 @@ Output:
   - ET: Elapsed time 
 Return: Output variables are used for return.
 ******************************************************************************)
-FUNCTION_BLOCK TON
+@EXTERNAL FUNCTION_BLOCK TON
 VAR_INPUT
 	IN: BOOL;
 	PT: TIME;
@@ -2973,7 +2973,7 @@ END_FUNCTION_BLOCK
 (******************************************************************************
 Description: eliminates leading spaces. 
 ******************************************************************************)
-FUNCTION TOUPPERCASE : STRING[1023]
+@EXTERNAL FUNCTION TOUPPERCASE : STRING[1023]
 VAR_INPUT
 	STR: STRING[1023];
 END_VAR
@@ -2989,7 +2989,7 @@ Output:
   - ET: The current phase of the High-Signal 
 Return: Output variables are used for return.
 ******************************************************************************)
-FUNCTION_BLOCK TP
+@EXTERNAL FUNCTION_BLOCK TP
 VAR_INPUT
 	IN: BOOL;
 	PT: TIME;

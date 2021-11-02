@@ -6053,7 +6053,7 @@ this routine also allows to correct the behavior of s7 where the internal plc co
 
 *)
 (* @END_DECLARATION := '0' *)
-tx := TIME();
+tx := _TIME();
 T_PLC_MS := TIME_TO_DWORD(Tx);
 (* hier muss die korrektur f�r step7 stattfinden
 plctime muss den vollen wertebereich von time ausnutzen:
@@ -6105,7 +6105,7 @@ this routine also allows to correct the behavior of s7 where the internal plc co
 
 *)
 (* @END_DECLARATION := '0' *)
-tx := TIME();
+tx := _TIME();
 T_PLC_US := TIME_TO_DWORD(Tx)*1000;
 (* hier muss die korrektur f�r step7 stattfinden
 plctime muss den vollen wertebereich von time ausnutzen:
