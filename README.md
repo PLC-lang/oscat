@@ -11,10 +11,13 @@ To reduce warnings we made the following non breaking changes
 - String range changed from `()` to `[]`
 - `POINTER TO` was changed to `REF_TO`
 - `FUNCTIONBLOCK` renamed to `FUNCTON_BLOCK`
+
 To avoid errors we made the following non breaking changes
 - Array initializers are surrounded by `[]`
 	- Currenty broken on rusty (PLC-lang/rusty#352)
 - TOD literals are moved to 3 sections (PLC-lang/rusty#355) 
+- ADR was replaced with & as ADR is not yet implements
+
 To avoid errors, the following __breaking__ changes were made
 - `VAR_INPUT CONSANT` was changed to `VAR_INPUT`
 - `OVERRIDE` was renamed to `_OVERRIDE`
