@@ -23,7 +23,7 @@ To avoid errors, the following __breaking__ changes were made
 - `OVERRIDE` was renamed to `_OVERRIDE`
 _ `BUFFER` functions were disabled (PLC-lang/rusty#353)
 - `TIME` was renamed to `_TIME` (PLC-lang/rusty#357)
-
+- `DIR_TO_DEG` was disabled (PLC-lang/rusty#370)
 
 ### Standard Functions
 To avoid compile errors, a stub for the standard functions is also available

@@ -4330,6 +4330,7 @@ END_FUNCTION
 (* @PATH := '\/Engineering\/conversion' *)
 (* @OBJECTFLAGS := '0, 8' *)
 (* @SYMFILEFLAGS := '2048' *)
+@EXTERNAL
 FUNCTION DIR_TO_DEG : INT
 VAR_INPUT
 	DIR : STRING[3];
