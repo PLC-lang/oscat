@@ -22845,7 +22845,7 @@ the character itself is returned if no name is available for the character
 (* @END_DECLARATION := '0' *)
 IF C <> 0 THEN
 	(* construct search string from code followed by $ sign, also clear charname string*)
-	CHARNAME := CHR_TO_STRING[C];
+	CHARNAME := CHR_TO_STRING(C);
 	CHARNAME := CONCAT(CHARNAME,'&');
 	CHARNAME := CONCAT(';', CHARNAME);
 	WHILE pos = 0 AND (i < 4) DO
@@ -22858,7 +22858,7 @@ IF C <> 0 THEN
 		pos := FIND(CHARNAME, ';');
 		CHARNAME := LEFT(CHARNAME,pos - 1);
 	ELSE
-		CHARNAME := CHR_TO_STRING[C];
+		CHARNAME := CHR_TO_STRING(C);
 	END_IF;
 ELSE
 	CHARNAME := '';
@@ -23396,11 +23396,11 @@ WHILE pos > 0 DO
 		79 : (* letter O returns the hour in 1 or 2 digit form 0..12h *)
 			tmp := HOUR(td) MOD 12;
 			IF tmp = 0 THEN tmp := 12; END_IF;
-			fs := INT_TO_STRING[tmp];
+			fs := INT_TO_STRING(tmp);
 		80 : (* letter P returns the hour in exactly 2 digit form 0..12h *)
 			tmp := HOUR(td) MOD 12;
 			IF tmp = 0 THEN tmp := 12; END_IF;
-			fs := INT_TO_STRING[tmp];
+			fs := INT_TO_STRING(tmp);
 			IF LEN(fs) < 2 THEN fs := CONCAT(FILL, fs); END_IF;
 		81 : (* letter Q returns the minute of the hour in 1 or two digit form *)
 			fs := INT_TO_STRING(MINUTE(td));
@@ -23413,9 +23413,9 @@ WHILE pos > 0 DO
 			fs := INT_TO_STRING(REAL_TO_INT(SECOND(td)));
 			IF LEN(fs) < 2 THEN fs := CONCAT(FILL, fs); END_IF;
 		85 : (* letter U returns the milliseconds in 1 to 3 digits *)
-			fs := INT_TO_STRING[MS];
+			fs := INT_TO_STRING(MS);
 		86 : (* letter V returns the milliseconds in exactly 3 digit form *)
-			fs := INT_TO_STRING[MS];
+			fs := INT_TO_STRING(MS);
 			fs := CONCAT('00',fs);
 			fs := RIGHT(fs, 3);
 		87 : (* letter W returns the day of the month with exactly 2 digits first digit is filled with blank if necessary *)
@@ -23522,7 +23522,7 @@ for example:	dword_to_strf(123,4) = '0123'
 (* @END_DECLARATION := '0' *)
 (* limit N to max 20 characters *)
 (* convert dword to string first and cut to length N *)
-DWORD_TO_STRF := FIX(DWORD_TO_STRING[in],LIMIT(0,N,20),48,1);
+DWORD_TO_STRF := FIX(DWORD_TO_STRING(in),LIMIT(0,N,20),48,1);
 
 
 (* revision history
@@ -23728,7 +23728,7 @@ the function fill creates a string at length L of characters C.
 
 *)
 (* @END_DECLARATION := '0' *)
-Sx := CHR_TO_STRING[c];
+Sx := CHR_TO_STRING(c);
 (* limit L to maximum 80 characters the length of a standard string *)
 L := LIMIT(0,L,STRING_LENGTH);
 (* create a string of characters to be connected to str *)
@@ -26142,7 +26142,7 @@ CASE in OF
 	252:	(* � *)
 		TO_UML := 'ue';
 ELSE
-	TO_UML := CHR_TO_STRING[IN];
+	TO_UML := CHR_TO_STRING(IN);
 END_CASE;
 
 

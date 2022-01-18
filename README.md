@@ -17,6 +17,7 @@ To avoid errors we made the following non breaking changes
 	- Currenty broken on rusty (PLC-lang/rusty#352)
 - TOD literals are moved to 3 sections (PLC-lang/rusty#355) 
 - ADR was replaced with & as ADR is not yet implements
+- Functions parameters are changed to `()` instead of `[]`
 
 To avoid errors, the following __breaking__ changes were made
 - `VAR_INPUT CONSANT` was changed to `VAR_INPUT`
