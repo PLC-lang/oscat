@@ -25950,6 +25950,9 @@ VAR
 	su : STRING[2];
 	pos : INT;
 END_VAR
+VAR_TEMP
+	ptot,ptmt: LWORD;
+END_VAR
 
 (*
 version 1.1	29. mar. 2008
@@ -25975,7 +25978,9 @@ WHILE pos < L AND pos < string_length DO
 		su := TO_UML(pt^);
 		(* we must make sure pointer are not out of range *)
 		pto^ := pt1^;
-		IF pto < ptm AND pt2^ > 0 THEN
+		ptot := pto;
+		ptmt := ptm;
+		IF ptot < ptmt AND pt2^ > 0 THEN
 			pto := pto + 1;
 			pto^ := pt2^;
 		END_IF;
