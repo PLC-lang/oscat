@@ -6054,7 +6054,7 @@ this routine also allows to correct the behavior of s7 where the internal plc co
 
 *)
 (* @END_DECLARATION := '0' *)
-tx := _TIME();
+tx := TIME();
 T_PLC_MS := TIME_TO_DWORD(Tx);
 (* hier muss die korrektur f�r step7 stattfinden
 plctime muss den vollen wertebereich von time ausnutzen:
@@ -6106,7 +6106,7 @@ this routine also allows to correct the behavior of s7 where the internal plc co
 
 *)
 (* @END_DECLARATION := '0' *)
-tx := _TIME();
+tx := TIME();
 T_PLC_US := TIME_TO_DWORD(Tx)*1000;
 (* hier muss die korrektur f�r step7 stattfinden
 plctime muss den vollen wertebereich von time ausnutzen:
@@ -19265,59 +19265,6 @@ hm	10. mar. 2009		rev 1.3
 *)
 END_FUNCTION
 
-
-(* @NESTEDCOMMENTS := 'Yes' *)
-(* @PATH := '\/Mathematical' *)
-(* @OBJECTFLAGS := '0, 8' *)
-(* @SYMFILEFLAGS := '2048' *)
-FUNCTION ATAN2 : REAL
-VAR_INPUT
-	Y : REAL;
-	X : REAL;
-END_VAR
-
-
-(*
-version 1.2	10. mar. 2009
-programmer 	hugo
-tested by		oscat
-
-this function calculates the angle in a coordinate system in rad.
-
-*)
-(* @END_DECLARATION := '0' *)
-IF X > 0.0 THEN
-	ATAN2 := ATAN(Y/X);
-ELSIF X < 0.0 THEN
-	IF Y >=0.0 THEN
-		ATAN2 := ATAN(Y/X) + MATH.PI;
-	ELSE
-		ATAN2 := ATAN(Y/X) - MATH.PI;
-	END_IF;
-ELSIF Y > 0.0 THEN
-	ATAN2 := MATH.PI05;
-ELSIF Y < 0.0 THEN
-	ATAN2 := -MATH.PI05;
-ELSE
-	ATAN2 := 0.0;
-END_IF;
-
-
-(* revision history
-hm	20.  apr. 2008	rev 1.0
-	original version
-
-hm	18. oct. 2008	rev 1.1
-	changed to use math constants
-
-hm	10. mar. 2009	rev 1.2
-	real constants updated to new systax using dot
-
-*)
-
-END_FUNCTION
-
-
 (* @NESTEDCOMMENTS := 'Yes' *)
 (* @PATH := '\/Mathematical' *)
 (* @OBJECTFLAGS := '0, 8' *)
@@ -21456,63 +21403,6 @@ hm	10. mar. 2009	rev 1.2
 
 
 END_FUNCTION
-
-
-(* @NESTEDCOMMENTS := 'Yes' *)
-(* @PATH := '\/Mathematical' *)
-(* @OBJECTFLAGS := '0, 8' *)
-(* @SYMFILEFLAGS := '2048' *)
- FUNCTION ROUND : REAL
-VAR_INPUT
-	in : REAL;
-	N : INT;
-END_VAR
-VAR
-	X: REAL;
-END_VAR
-
-
-(*
-version 1.5	25. oct. 2008
-programmer 	hugo
-tested by	tobias
-
-this function rounds a real down to n digits behind the comma.
-
-
-*)
-(* @END_DECLARATION := '0' *)
-X := setup.DECADES[LIMIT(0,N,8)];
-ROUND := DINT_TO_REAL(REAL_TO_DINT(in * X)) / X;
-
-
-
-(* revision history
-hm	1. sep 2006	rev 1.0
-	original version
-
-hm	2. dec 2007	rev 1.1
-	changed code for better performance
-
-hm	8. jan 2008	rev 1.2
-	further improvement in performance
-
-hm 11. mar. 2008	rev 1.3
-	corrected an error with negative numbers
-	use real_to_dint instead of trunc
-
-hm	16. mar 2008	rev 1.4
-	added type conversion to avoid warning under codesys 3.0
-
-hm	25. oct. 2008	rev 1.5
-	new code using global constants decades
-*)
-
-
-
-
-END_FUNCTION
-
 
 (* @NESTEDCOMMENTS := 'Yes' *)
 (* @PATH := '\/Mathematical' *)
@@ -26765,51 +26655,6 @@ hm	10. mar. 2009	rev 2.1
 
 
 END_FUNCTION
-
-
-(* @NESTEDCOMMENTS := 'Yes' *)
-(* @PATH := '\/Time&Date' *)
-(* @OBJECTFLAGS := '0, 8' *)
-(* @SYMFILEFLAGS := '2048' *)
-FUNCTION DAY_OF_WEEK : INT
-VAR_INPUT
-	IDATE : DATE;
-END_VAR
-
-
-(*
-version 1.4	7. oct. 2008
-programmer 	hugo
-tested by	tobias
-
-calculates the weekday of a week according to ISO8601   
-monday = 1 ..... sunday = 7  
-
-*)
-(* @END_DECLARATION := '0' *)
-DAY_OF_WEEK := DWORD_TO_INT((DATE_TO_DWORD(idate) / 86400 + 3) MOD 7) + 1;
-
-
-(* revision history
-hm 	21.8.06 		rev 1.1
-	corrected a miscalculation
-
-hm	23.12.2007		rev 1.2
-	correction for step7
-
-hm	7. apr. 2008	rev 1.3
-	deleted unused step7 code
-
-hm	7. oct. 2008	rev 1.4
-	changed name of function from weekday to day_of_week
-
-*)
-
-
-
-
-END_FUNCTION
-
 
 (* @NESTEDCOMMENTS := 'Yes' *)
 (* @PATH := '\/Time&Date' *)

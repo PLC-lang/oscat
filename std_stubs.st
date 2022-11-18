@@ -1,36 +1,207 @@
-(**************************
- * 
- *This operator returns the absolute value of a number.
- * 
-*************************)
-@EXTERNAL FUNCTION ABS : LWORD // ANY_NUM 
+(********************
+ *
+ * Converts UDINT to DT
+ *
+*********************)
+@EXTERNAL FUNCTION UDINT_TO_DT : DT
 VAR_INPUT
-	IN : LWORD; //ANY_NUM 
+	in : UDINT;
 END_VAR
+END_FUNCTION
 
+(********************
+ *
+ * Converts DWORD to TOD
+ *
+*********************)
+@EXTERNAL FUNCTION DWORD_TO_TOD : TOD
+VAR_INPUT
+	in : DWORD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DT to UDINT
+ *
+*********************)
+@EXTERNAL FUNCTION DT_TO_UDINT : UDINT
+VAR_INPUT
+	in : DT;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DWORD to DT
+ *
+*********************)
+@EXTERNAL FUNCTION DWORD_TO_DT : DT
+VAR_INPUT
+	in : DWORD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts TIME to INT
+ *
+*********************)
+@EXTERNAL FUNCTION TIME_TO_INT : INT
+VAR_INPUT
+	in : TIME;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DINT to STRING
+ *
+*********************)
+@EXTERNAL FUNCTION DINT_TO_STRING : STRING
+VAR_INPUT
+	in : DINT;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts TOD to DWORD
+ *
+*********************)
+@EXTERNAL FUNCTION TOD_TO_DWORD : DWORD
+VAR_INPUT
+	in : TOD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DWORD to DATE
+ *
+*********************)
+@EXTERNAL FUNCTION DWORD_TO_DATE : DATE
+VAR_INPUT
+	in : DWORD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DATE to UDINT
+ *
+*********************)
+@EXTERNAL FUNCTION DATE_TO_UDINT : UDINT
+VAR_INPUT
+	in : DATE;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts UDINT to DATE
+ *
+*********************)
+@EXTERNAL FUNCTION UDINT_TO_DATE : DATE
+VAR_INPUT
+	in : UDINT;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DINT to TOD
+ *
+*********************)
+@EXTERNAL FUNCTION DINT_TO_TOD : TOD
+VAR_INPUT
+	in : DINT;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts TOD to DINT
+ *
+*********************)
+@EXTERNAL FUNCTION TOD_TO_DINT : DINT
+VAR_INPUT
+	in : TOD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts STRING to INT
+ *
+*********************)
+@EXTERNAL FUNCTION STRING_TO_INT : INT
+VAR_INPUT
+	in : STRING;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts STRING to REAL
+ *
+*********************)
+@EXTERNAL FUNCTION STRING_TO_REAL : REAL
+VAR_INPUT
+	in : STRING;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts REAL to STRING
+ *
+*********************)
+@EXTERNAL FUNCTION REAL_TO_STRING : STRING
+VAR_INPUT
+	in : REAL;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DWORD to STRING
+ *
+*********************)
+@EXTERNAL FUNCTION DWORD_TO_STRING : STRING
+VAR_INPUT
+	in : DWORD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts INT to STRING
+ *
+*********************)
+@EXTERNAL FUNCTION INT_TO_STRING : STRING
+VAR_INPUT
+	in : INT;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DATE to DWORD
+ *
+*********************)
+@EXTERNAL FUNCTION DATE_TO_DWORD : DWORD
+VAR_INPUT
+	in : DATE;
+END_VAR
 END_FUNCTION
 
 (**************************
  * 
- * This operator returns the arc cosine of a number. The value is calculated in radian.
+ * This operator provides the number of bytes required by the given variable.
  * 
 *************************)
-@EXTERNAL FUNCTION ACOS : LREAL
-
-VAR_INPUT
-	IN : DINT; //ANY_NUM;
-END_VAR
-
-END_FUNCTION
-
-(**************************
- * 
- * This operator returns the address of its argument in a DWORD.
- * This address can be sent to manufacturing functions to be treated as a pointer 
- * or it can be assigned to a pointer within the project.
- * 
-*************************)
-@EXTERNAL FUNCTION ADR : DWORD
+@EXTERNAL FUNCTION SIZEOF : INT
 
 VAR_INPUT
 	IN : LWORD; //ANY
@@ -38,31 +209,130 @@ END_VAR
 
 END_FUNCTION
 
+(********************
+ *
+ * Converts BYTE to REAL
+ *
+*********************)
+@EXTERNAL FUNCTION BYTE_TO_REAL : REAL
+VAR_INPUT
+	in : BYTE;
+END_VAR
+END_FUNCTION
+
+
 (**************************
- * This operator returns the arc sine of a number. The value is calculated in radian.
+ * 
+ * Conversion to an integral part of a number.
+ * The whole number portion of the value will be used.
  * 
 *************************)
-@EXTERNAL FUNCTION ASIN : LREAL
+@EXTERNAL FUNCTION TRUNC : INT
 
 VAR_INPUT
-	IN : LREAL; //ANY_NUM;
+	IN : LREAL; //ANY_REAL;
 END_VAR
 
+END_FUNCTION
+(********************
+ *
+ * Converts WORD to REAL
+ *
+*********************)
+@EXTERNAL FUNCTION WORD_TO_REAL : REAL
+VAR_INPUT
+	in : WORD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts TIME to DINT
+ *
+*********************)
+@EXTERNAL FUNCTION TIME_TO_DINT : DINT
+VAR_INPUT
+	in : TIME;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts REAL to TIME
+ *
+*********************)
+@EXTERNAL FUNCTION REAL_TO_TIME : TIME
+VAR_INPUT
+	in : REAL;
+END_VAR
 END_FUNCTION
 
 (**************************
  * 
- * This operator returns the arc tangent of a number. The value is calculated in radian.
+ * Returns the time passed by since system start in milliseconds
  * 
 *************************)
-@EXTERNAL FUNCTION ATAN : LREAL
-
-VAR_INPUT
-	IN : LREAL; //ANY_NUM;
-END_VAR
+@EXTERNAL FUNCTION TIME : TIME
 
 END_FUNCTION
 
+(********************
+ *
+ * Converts DT to DWORD
+ *
+*********************)
+@EXTERNAL FUNCTION DT_TO_DWORD : DWORD
+VAR_INPUT
+	in : DT;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts LREAL to TIME
+ *
+*********************)
+@EXTERNAL FUNCTION LREAL_TO_TIME : TIME
+VAR_INPUT
+	in : LREAL;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts DWORD to TIME
+ *
+*********************)
+@EXTERNAL FUNCTION DWORD_TO_TIME : TIME
+VAR_INPUT
+	in : DWORD;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts TIME to DWORD
+ *
+*********************)
+@EXTERNAL FUNCTION TIME_TO_DWORD : DWORD
+VAR_INPUT
+	in : TIME;
+END_VAR
+END_FUNCTION
+
+(********************
+ *
+ * Converts TIME to REAL
+ *
+*********************)
+@EXTERNAL FUNCTION TIME_TO_REAL : REAL
+VAR_INPUT
+	in : TIME;
+END_VAR
+END_FUNCTION
+
+
+(*------------------------------------
 (********************
  *
  * Converts BOOL to BYTE
@@ -318,17 +588,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts BYTE to REAL
- *
-*********************)
-@EXTERNAL FUNCTION BYTE_TO_REAL : REAL
-VAR_INPUT
-	in : BYTE;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts BYTE to SINT
  *
 *********************)
@@ -569,17 +828,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts DATE to DWORD
- *
-*********************)
-@EXTERNAL FUNCTION DATE_TO_DWORD : DWORD
-VAR_INPUT
-	in : DATE;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts DATE to INT
  *
 *********************)
@@ -650,17 +898,6 @@ END_FUNCTION
  *
 *********************)
 @EXTERNAL FUNCTION DATE_TO_TOD : TOD
-VAR_INPUT
-	in : DATE;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts DATE to UDINT
- *
-*********************)
-@EXTERNAL FUNCTION DATE_TO_UDINT : UDINT
 VAR_INPUT
 	in : DATE;
 END_VAR
@@ -812,32 +1049,10 @@ END_FUNCTION
 
 (********************
  *
- * Converts DINT to STRING
- *
-*********************)
-@EXTERNAL FUNCTION DINT_TO_STRING : STRING
-VAR_INPUT
-	in : DINT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts DINT to TIME
  *
 *********************)
 @EXTERNAL FUNCTION DINT_TO_TIME : TIME
-VAR_INPUT
-	in : DINT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts DINT to TOD
- *
-*********************)
-@EXTERNAL FUNCTION DINT_TO_TOD : TOD
 VAR_INPUT
 	in : DINT;
 END_VAR
@@ -933,17 +1148,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts DT to DWORD
- *
-*********************)
-@EXTERNAL FUNCTION DT_TO_DWORD : DWORD
-VAR_INPUT
-	in : DT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts DT to INT
  *
 *********************)
@@ -1021,17 +1225,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts DT to UDINT
- *
-*********************)
-@EXTERNAL FUNCTION DT_TO_UDINT : UDINT
-VAR_INPUT
-	in : DT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts DT to UINT
  *
 *********************)
@@ -1087,17 +1280,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts DWORD to DATE
- *
-*********************)
-@EXTERNAL FUNCTION DWORD_TO_DATE : DATE
-VAR_INPUT
-	in : DWORD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts DWORD to DINT
  *
 *********************)
@@ -1107,16 +1289,6 @@ VAR_INPUT
 END_VAR
 END_FUNCTION
 
-(********************
- *
- * Converts DWORD to DT
- *
-*********************)
-@EXTERNAL FUNCTION DWORD_TO_DT : DT
-VAR_INPUT
-	in : DWORD;
-END_VAR
-END_FUNCTION
 
 (********************
  *
@@ -1162,38 +1334,6 @@ VAR_INPUT
 END_VAR
 END_FUNCTION
 
-(********************
- *
- * Converts DWORD to STRING
- *
-*********************)
-@EXTERNAL FUNCTION DWORD_TO_STRING : STRING
-VAR_INPUT
-	in : DWORD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts DWORD to TIME
- *
-*********************)
-@EXTERNAL FUNCTION DWORD_TO_TIME : TIME
-VAR_INPUT
-	in : DWORD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts DWORD to TOD
- *
-*********************)
-@EXTERNAL FUNCTION DWORD_TO_TOD : TOD
-VAR_INPUT
-	in : DWORD;
-END_VAR
-END_FUNCTION
 
 (********************
  *
@@ -1402,17 +1542,6 @@ END_FUNCTION
  *
 *********************)
 @EXTERNAL FUNCTION INT_TO_SINT : SINT
-VAR_INPUT
-	in : INT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts INT to STRING
- *
-*********************)
-@EXTERNAL FUNCTION INT_TO_STRING : STRING
 VAR_INPUT
 	in : INT;
 END_VAR
@@ -1657,16 +1786,6 @@ VAR_INPUT
 END_VAR
 END_FUNCTION
 
-(********************
- *
- * Converts LREAL to TIME
- *
-*********************)
-@EXTERNAL FUNCTION LREAL_TO_TIME : TIME
-VAR_INPUT
-	in : LREAL;
-END_VAR
-END_FUNCTION
 
 (********************
  *
@@ -1913,28 +2032,6 @@ END_FUNCTION
  *
 *********************)
 @EXTERNAL FUNCTION REAL_TO_SINT : SINT
-VAR_INPUT
-	in : REAL;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts REAL to STRING
- *
-*********************)
-@EXTERNAL FUNCTION REAL_TO_STRING : STRING
-VAR_INPUT
-	in : REAL;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts REAL to TIME
- *
-*********************)
-@EXTERNAL FUNCTION REAL_TO_TIME : TIME
 VAR_INPUT
 	in : REAL;
 END_VAR
@@ -2318,19 +2415,6 @@ END_FUNCTION
 
 (**************************
  * 
- * This operator provides the number of bytes required by the given variable.
- * 
-*************************)
-@EXTERNAL FUNCTION SIZEOF : INT
-
-VAR_INPUT
-	IN : LWORD; //ANY
-END_VAR
-
-END_FUNCTION
-
-(**************************
- * 
  * This operator returns the square root of a number.
  * 
 *************************)
@@ -2429,32 +2513,10 @@ END_FUNCTION
 
 (********************
  *
- * Converts STRING to INT
- *
-*********************)
-@EXTERNAL FUNCTION STRING_TO_INT : INT
-VAR_INPUT
-	in : STRING;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts STRING to LREAL
  *
 *********************)
 @EXTERNAL FUNCTION STRING_TO_LREAL : LREAL
-VAR_INPUT
-	in : STRING;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts STRING to REAL
- *
-*********************)
-@EXTERNAL FUNCTION STRING_TO_REAL : REAL
 VAR_INPUT
 	in : STRING;
 END_VAR
@@ -2550,14 +2612,6 @@ END_VAR
 
 END_FUNCTION
 
-(**************************
- * 
- * Returns the time passed by since system start in milliseconds
- * 
-*************************)
-@EXTERNAL FUNCTION _TIME : TIME
-
-END_FUNCTION
 
 (********************
  *
@@ -2594,17 +2648,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts TIME to DINT
- *
-*********************)
-@EXTERNAL FUNCTION TIME_TO_DINT : DINT
-VAR_INPUT
-	in : TIME;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts TIME to DT
  *
 *********************)
@@ -2614,27 +2657,6 @@ VAR_INPUT
 END_VAR
 END_FUNCTION
 
-(********************
- *
- * Converts TIME to DWORD
- *
-*********************)
-@EXTERNAL FUNCTION TIME_TO_DWORD : DWORD
-VAR_INPUT
-	in : TIME;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts TIME to INT
- *
-*********************)
-@EXTERNAL FUNCTION TIME_TO_INT : INT
-VAR_INPUT
-	in : TIME;
-END_VAR
-END_FUNCTION
 
 (********************
  *
@@ -2642,17 +2664,6 @@ END_FUNCTION
  *
 *********************)
 @EXTERNAL FUNCTION TIME_TO_LREAL : LREAL
-VAR_INPUT
-	in : TIME;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts TIME to REAL
- *
-*********************)
-@EXTERNAL FUNCTION TIME_TO_REAL : REAL
 VAR_INPUT
 	in : TIME;
 END_VAR
@@ -2770,32 +2781,10 @@ END_FUNCTION
 
 (********************
  *
- * Converts TOD to DINT
- *
-*********************)
-@EXTERNAL FUNCTION TOD_TO_DINT : DINT
-VAR_INPUT
-	in : TOD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts TOD to DT
  *
 *********************)
 @EXTERNAL FUNCTION TOD_TO_DT : DT
-VAR_INPUT
-	in : TOD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts TOD to DWORD
- *
-*********************)
-@EXTERNAL FUNCTION TOD_TO_DWORD : DWORD
 VAR_INPUT
 	in : TOD;
 END_VAR
@@ -3003,20 +2992,6 @@ VAR
 END_VAR
 END_FUNCTION_BLOCK
 
-(**************************
- * 
- * Conversion to an integral part of a number.
- * The whole number portion of the value will be used.
- * 
-*************************)
-@EXTERNAL FUNCTION TRUNC : INT
-
-VAR_INPUT
-	IN : LREAL; //ANY_REAL;
-END_VAR
-
-END_FUNCTION
-
 (********************
  *
  * Converts UDINT to BOOL
@@ -3041,32 +3016,10 @@ END_FUNCTION
 
 (********************
  *
- * Converts UDINT to DATE
- *
-*********************)
-@EXTERNAL FUNCTION UDINT_TO_DATE : DATE
-VAR_INPUT
-	in : UDINT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts UDINT to DINT
  *
 *********************)
 @EXTERNAL FUNCTION UDINT_TO_DINT : DINT
-VAR_INPUT
-	in : UDINT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts UDINT to DT
- *
-*********************)
-@EXTERNAL FUNCTION UDINT_TO_DT : DT
 VAR_INPUT
 	in : UDINT;
 END_VAR
@@ -3635,17 +3588,6 @@ END_FUNCTION
 
 (********************
  *
- * Converts WORD to REAL
- *
-*********************)
-@EXTERNAL FUNCTION WORD_TO_REAL : REAL
-VAR_INPUT
-	in : WORD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts WORD to SINT
  *
 *********************)
@@ -3722,3 +3664,5 @@ END_VAR
 END_FUNCTION
 
 FUNCTION STRING_EQUAL : BOOL VAR_INPUT a,b : STRING[1024]; END_VAR END_FUNCTION
+
+--------------------------*)
