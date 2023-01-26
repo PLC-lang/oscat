@@ -1,0 +1,18 @@
+{
+    "files" : [
+        "oscat.st",
+		"stubs.st"
+    ],
+    "compile_type" : "Shared",
+    "output" : "oscat.so",
+    "libraries" : [
+        {
+            "name" : "iec61131std",
+            "path" : "path/to/lib/",
+            "package" : "Copy",
+            "include_path" : [
+                "files/to/include"
+            ]
+        }
+    ]
+}
