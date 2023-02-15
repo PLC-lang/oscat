@@ -8,10 +8,10 @@
     "libraries" : [
         {
             "name" : "iec61131std",
-            "path" : "path/to/lib/",
+            "path" : "lib/",
             "package" : "Copy",
             "include_path" : [
-                "files/to/include"
+                "include/*.st"
             ]
         }
     ]
