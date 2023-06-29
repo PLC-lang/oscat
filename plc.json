@@ -1,17 +1,17 @@
 {
     "files" : [
         "oscat.st",
-		"stubs.st"
+        "stubs.st"
     ],
     "compile_type" : "Shared",
     "output" : "oscat.so",
     "libraries" : [
         {
             "name" : "iec61131std",
-            "path" : "lib/",
-            "package" : "Copy",
+            "path" : "$STDLIBLOC/lib",
+            "package" : "System",
             "include_path" : [
-                "include/*.st"
+                "$STDLIBLOC/include/*.st"
             ]
         }
     ]
