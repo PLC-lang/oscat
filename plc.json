@@ -1,4 +1,6 @@
 {
+		
+    "name" : "oscat",
     "files" : [
         "oscat.st",
         "stubs.st"
