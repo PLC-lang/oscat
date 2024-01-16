@@ -9,7 +9,7 @@ VAR_INPUT
 END_VAR
 VAR
 	ptw : REF_TO DWORD;
-	temp: DWORD;
+	temp: LWORD;
 	end, end32 : DWORD;
 END_VAR
 
@@ -80,7 +80,7 @@ VAR_INPUT
 END_VAR
 VAR
 	ptw : REF_TO DWORD;
-	temp : DWORD;
+	temp : LWORD;
 	end, end32 : DWORD;
 END_VAR
 
