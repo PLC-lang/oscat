@@ -29,7 +29,7 @@ To avoid errors we made the following non breaking changes :
   - (PLC-lang/rusty#352) fixed
 - TOD literals are moved to 3 sections
   - (PLC-lang/rusty#355) fixed
-- ADR was replaced with &
+- ADR was replaced with REF
   - (PLC-lang/rusty#469) fixed
 - Functions parameters are changed to `()` instead of `[]`
 
