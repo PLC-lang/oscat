@@ -277,7 +277,7 @@ because this function works with pointers its very time efficient and it needs n
 
 *)
 (* @END_DECLARATION := '0' *)
-ps := &(str);
+ps := REF(str);
 end := MIN(pos + LEN(str), UINT_TO_INT(size));
 IF end > 0 THEN end := end -1; END_IF;
 FOR i := pos TO end DO
@@ -404,7 +404,7 @@ when IGN = TRUE, STR must be in capital letters and the search is case insensitv
 
 *)
 (* @END_DECLARATION := '0' *)
-ps := &(STR);
+ps := REF(STR);
 lx := LEN(STR);
 end := MIN(SIZE - lx, SIZE - 1);
 lx := lx - 1;
@@ -473,7 +473,7 @@ because this function works with pointers its very time efficient and it needs n
 
 *)
 (* @END_DECLARATION := '0' *)
-ps := &(BUFFER_TO_STRING);
+ps := REF(BUFFER_TO_STRING);
 IF size = 0 THEN RETURN; END_IF;
 sta := MIN(start, size -1);
 stp := MIN(stop, size -1);
@@ -6776,7 +6776,7 @@ IF Res >= R0 THEN
 		TEMP_PT := (-X + SQRT(t1)) / (2.0 * Y);
 	END_IF;
 ELSE
-	pt := &(step);
+	pt := REF(step);
 	(* since the formula cannot be solved this is a successive approximation *)
 	TEMP_PT := -100.0;
 	WHILE step > accuracy DO
@@ -10398,7 +10398,7 @@ die liste liegt als string von elementen vor die mit den zeichen SEP am anfang m
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(LIST);
+pt := REF(LIST);
 
 FOR read := 1 TO LIST_LENGTH DO
 	c := pt^[read];								(* read character from list *)
@@ -10463,8 +10463,8 @@ die liste liegt als string von elementen vor die mit den zeichen SEP am anfang m
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(LIST);							(* load pointers *)
-po := &(LIST_GET);
+pt := REF(LIST);							(* load pointers *)
+po := REF(LIST_GET);
 
 REPEAT
 	c := pt^[i];
@@ -10529,7 +10529,7 @@ die liste liegt als string von elementen vor die mit den zeichen SEP am anfang m
 *)
 (* @END_DECLARATION := '0' *)
 (* load pointers *)
-pt := &(LIST);
+pt := REF(LIST);
 
 IF LEN(ins) + 1 + LEN(LIST) > LIST_LENGTH THEN
 	LIST_INSERT := FALSE;
@@ -10601,7 +10601,7 @@ die liste liegt als string von elementen vor die mit den zeichen SEP am anfang m
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(LIST);
+pt := REF(LIST);
 LIST_LEN := 0;
 REPEAT
 	c := pt^[pos];
@@ -10667,8 +10667,8 @@ die liste liegt als string von elementen vor die mit den zeichen SEP am anfang m
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(LIST);
-po := &(LEL);
+pt := REF(LIST);
+po := REF(LEL);
 
 IF rst THEN
 	pos := 1;
@@ -10744,8 +10744,8 @@ die liste liegt als string von elementen vor die mit den zeichen SEP separiert s
 *)
 (* @END_DECLARATION := '0' *)
 (* load pointers *)
-pt := &(LIST);
-po := &(LIST_RETRIEVE);
+pt := REF(LIST);
+po := REF(LIST_RETRIEVE);
 
 IF pos > 0 THEN
 	FOR i := 1 TO LIST_LENGTH DO
@@ -10814,7 +10814,7 @@ die liste liegt als string von elementen vor die mit den zeichen SEP beginnen.
 *)
 (* @END_DECLARATION := '0' *)
 (* load pointers *)
-pt := &(LIST);
+pt := REF(LIST);
 
 (* search position of last element *)
 FOR i := 1 TO LIST_LENGTH DO
@@ -12529,7 +12529,7 @@ RETURN values: #0 = normal value, #20 = +infinity, #40 = -infinty, #80 = NAN
 *)
 
 (* @END_DECLARATION := '0' *)
-pt := &(X);				(* move real to dword, real_to_dword does not work becasze it treats dword as a number on many systems *)
+pt := REF(X);				(* move real to dword, real_to_dword does not work becasze it treats dword as a number on many systems *)
 tmp := ROL(pt^,1);			(* rotate left foir easy checking, sign will be at lease significant digit *)
 IF tmp < 16#FF000000 THEN
 	CHK_REAL := 16#00;		(* normalized and denormalized numbers *)
@@ -12723,7 +12723,7 @@ this function converts a DWORD to REAL in a bitwise manner.
 *)
 
 (* @END_DECLARATION := '0' *)
-pt := &(X);
+pt := REF(X);
 DW_TO_REAL := pt^;
 
 (* revision history
@@ -13027,7 +13027,7 @@ this function converts a 32 Bit Real to a dword in a bitwise manner.
 *)
 
 (* @END_DECLARATION := '0' *)
-pt := &(X);
+pt := REF(X);
 REAL_TO_DW := pt^;
 
 (* revision history
@@ -21144,7 +21144,7 @@ RDM := FRACT(DWORD_TO_REAL(tn) / 10000000.0 * (math.E - LIMIT(0.0,last,1.0)));
 
 
 (*
-pt := &(temp);
+pt := REF(temp);
 pt^ := (T_PLC_MS() AND 16#007FFFFF) OR 16#3D000000;
 RDM := fract(modR(temp*e+pi1, PI1-last) + modR(temp*PI1+e + last,e-last));
 *)
@@ -22075,10 +22075,10 @@ the module checks 4 inputs for a change of more than the specified sensitivity S
 (* @END_DECLARATION := '0' *)
 (* read system timer *)
 tx := DWORD_TO_TIME(T_PLC_MS());
-P0 := &(R0);
-P1 := &(R1);
-P2 := &(R2);
-P3 := &(R3);
+P0 := REF(R0);
+P1 := REF(R1);
+P2 := REF(R2);
+P3 := REF(R3);
 
 ESR_Flag := FALSE;
 esr_out[3].typ := 0;
@@ -22379,7 +22379,7 @@ BINARY_TO_byte converts a binary string into a byte.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(bin);
+pt := REF(bin);
 stop := LEN(bin);
 FOR I := 1 TO stop DO
 	x := pt^;
@@ -22432,7 +22432,7 @@ BINARY_TO_DWORD converts a binary string into a dword.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(bin);
+pt := REF(bin);
 stop := LEN(bin);
 FOR I := 1 TO stop DO
 	x := pt^;
@@ -22486,7 +22486,7 @@ The lowest order bit will be on the right and the high order bit on the left.
 
 (* @END_DECLARATION := '0' *)
 (* pointer f�r die ausgabe ermitteln *)
-pt := &(BYTE_TO_STRB);
+pt := REF(BYTE_TO_STRB);
 (* die 8 ausgabecharacter ermitteln und schreiben *)
 FOR i := 1 TO 8 DO
 	pt^ := BOOL_TO_BYTE(in.7) + 48;
@@ -22549,7 +22549,7 @@ The lowest order Character will be on the right and the high order Character on 
 
 (* @END_DECLARATION := '0' *)
 (* read pointer to output string *)
-PT := &(BYTE_TO_STRH);
+PT := REF(BYTE_TO_STRH);
 (* calculate high order hex value *)
 temp := SHR(in,4);
 (* convert value to hex character *)
@@ -22619,7 +22619,7 @@ capitalize returns str with all first letters after a blank or beginning of the 
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(CAPITALIZE);
+PT := REF(CAPITALIZE);
 CAPITALIZE := str;
 L := LEN(str);
 FOR pos := 1 TO l DO
@@ -22791,7 +22791,7 @@ CHR creates a character from a byte input and stuffs it in a one character lengt
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(CHR_TO_STRING);
+PT := REF(CHR_TO_STRING);
 PT^ := C;
 pt := pt + 1;
 pt^ := 0;
@@ -22889,7 +22889,7 @@ IF pos < 1 OR pos > LEN(str) THEN
 	CODE := 0;
 	RETURN;
 ELSE
-	PT := &(STR) + INT_TO_DWORD(pos - 1);
+	PT := REF(STR) + INT_TO_DWORD(pos - 1);
 	CODE := pt^;
 END_IF;
 
@@ -22928,7 +22928,7 @@ COUNT_CHAR counts how often a character CHAR occurs within a string STR.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 l := LEN(str);
 COUNT_CHAR := 0;
 FOR pos := 1 TO l DO
@@ -23016,7 +23016,7 @@ DEC_TO_byte converts a decimal string into a byte.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(dec);
+pt := REF(dec);
 stop := LEN(DEC);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -23067,7 +23067,7 @@ DEC_TO_DWORD converts a decimal string into a DWORD.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(dec);
+pt := REF(dec);
 stop := LEN(dec);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -23117,7 +23117,7 @@ DEC_TO_INT converts a decimal string into an Integer.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(dec);
+pt := REF(dec);
 stop := LEN(dec);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -23348,7 +23348,7 @@ The lowest order bit will be on the right and the high order bit on the left.
 *)
 (* @END_DECLARATION := '0' *)
 (* pointer f�r die ausgabe ermitteln *)
-pt := &(DWORD_TO_STRB);
+pt := REF(DWORD_TO_STRB);
 (* die 8 ausgabecharacter ermitteln und schreiben *)
 FOR i := 1 TO 32 DO
 	pt^:= BOOL_TO_BYTE(in.31) + 48;
@@ -23446,7 +23446,7 @@ The lowest order Character will be on the right and the high order Character on 
 
 (* @END_DECLARATION := '0' *)
 (* read output adress to pointer *)
-pt := &(DWORD_TO_STRH) + 8;
+pt := REF(DWORD_TO_STRH) + 8;
 (* wirte the closing byte for the string *)
 pt^:= 0;
 
@@ -23661,7 +23661,7 @@ control characters are the ascii character 00 .. 31 and 127
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(str);
+pt := REF(str);
 stop := LEN(str);
 FOR i := MAX(pos,1) TO stop DO;
 	X := pt^[i];
@@ -23718,7 +23718,7 @@ control characters are the ascii character 00 .. 31 and 127.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(str);
+pt := REF(str);
 stop := LEN(str);
 FOR i := MAX(pos,1) TO stop DO;
 	x := PT^[I];
@@ -23769,7 +23769,7 @@ a number is characterized by a letter "0..9" or "."
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(str);
+pt := REF(str);
 end := LEN(str);
 FOR i := MAX(pos,1) TO end DO;
 	X := pt^[i];
@@ -23824,7 +23824,7 @@ a number is characterized by a letter "0..9" or "."
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(str);
+pt := REF(str);
 stop := LEN(str);
 FOR i := MAX(pos,1) TO stop DO;
 	X := pt^[i];
@@ -23923,7 +23923,7 @@ a number is characterized by a letter "0..9" or "."
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(str) + LEN(str) - 1;
+pt := REF(str) + LEN(str) - 1;
 FOR pos := LEN(str) TO 1 BY -1 DO;
 	IF (PT^ < 48 AND PT^ <> 46) OR PT^ > 57 THEN
 		FINDB_NONUM := pos;
@@ -23973,7 +23973,7 @@ a number is characterized by a letter "0..9" or "."
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(str) + LEN(str) - 1;
+pt := REF(str) + LEN(str) - 1;
 FOR pos := LEN(str) TO 1 BY -1 DO;
 	IF (PT^ > 47 AND PT^ < 58) OR PT^ = 46 THEN
 		FINDB_NUM := pos;
@@ -24140,7 +24140,7 @@ the exponent has to start with capital E or lowercase e .
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(FLT);
+pt := REF(FLT);
 stop := LEN(FLT);
 
 (* we first check for sign and exit if first number or dot is reached *)
@@ -24569,7 +24569,7 @@ HEX_TO_BYTE converts a Hexadecimal string into a byte.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(hex);
+pt := REF(hex);
 stop := LEN(hex);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -24624,7 +24624,7 @@ HEX_TO_DWORD converts a Hexadecimal string into a DWORD.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(hex);
+pt := REF(hex);
 stop := LEN(hex);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -24686,7 +24686,7 @@ ISC_ALNUM testet ob in einem string nur Zahlen 0..9 vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT (ISC_ALPHA(pt^) OR ISC_NUM(pt^)) THEN
@@ -24731,7 +24731,7 @@ IS_ALPHA testet ob in einem string nur Zeichen a-z oder A - Z vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT ISC_ALPHA(pt^) THEN
@@ -24817,7 +24817,7 @@ IS_CTRL testet ob in einem string nur Steuerzeichen (Char < 32) vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT (ISC_CTRL(pt^)) THEN
@@ -24862,7 +24862,7 @@ IS_HEX testet ob in einem string nur Zahlen 0..9 oder A..F oder a..f  vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT (ISC_HEX(pt^)) THEN
@@ -24907,7 +24907,7 @@ IS_LOWER testet ob in einem string nur kleinbuchstaben vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT (ISC_LOWER(pt^)) THEN
@@ -24993,7 +24993,7 @@ IS_NUM testet ob in einem string nur Zahlen 0..9 vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT (ISC_NUM(pt^)) THEN
@@ -25038,7 +25038,7 @@ IS_UPPER testet ob in einem string keine Kleinbuchstaben vorkommen.
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
+PT := REF(str);
 L := LEN(str);
 FOR pos := 1 TO L DO
 	IF NOT (ISC_UPPER(pt^)) THEN
@@ -25278,7 +25278,7 @@ lowercase returns str while all letters A..Z and �.�,� are converted to lo
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(LOWERCASE);
+PT := REF(LOWERCASE);
 lowercase := str;
 l := LEN(str);
 FOR pos := 1 TO l DO
@@ -25476,8 +25476,8 @@ this function reverses an input string.
 
 *)
 (* @END_DECLARATION := '0' *)
-pi := &(str);
-po := &(mirror);
+pi := REF(str);
+po := REF(mirror);
 lx := LEN(str);
 FOR i := lx TO 1 BY - 1 DO
 	po^ := pi^[i];
@@ -25567,7 +25567,7 @@ OCT_TO_BYTE converts a octagonal string into a byte.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(oct);
+pt := REF(oct);
 stop := LEN(oct);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -25617,7 +25617,7 @@ OCT_TO_DWORD converts a octagonal string into a dword.
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(oct);
+pt := REF(oct);
 stop := LEN(oct);
 FOR I := 1 TO stop DO
 	(* read the first character and subtract 48 to get value in decimal 0 = 48 *)
@@ -25846,10 +25846,10 @@ REPLACE_UML replaces all occurences of �,�,� and �,�,�,� with Ae, 
 
 *)
 (* @END_DECLARATION := '0' *)
-PT := &(str);
-pto := &(REPLACE_UML);
+PT := REF(str);
+pto := REF(REPLACE_UML);
 ptm := pto + INT_TO_DWORD(string_length);
-pt1 := &(su);
+pt1 := REF(su);
 pt2 := pt1 + 1;
 L := LEN(str);
 WHILE pos < L AND pos < string_length DO
@@ -26241,7 +26241,7 @@ uppercase returns str while all letters a..z and �,�,� are converted to up
 
 *)
 (* @END_DECLARATION := '0' *)
-pt := &(UPPERCASE);
+pt := REF(UPPERCASE);
 UPPERCASE := str;
 l := LEN(str);
 FOR pos := 1 TO l DO
