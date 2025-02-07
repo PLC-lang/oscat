@@ -530,7 +530,7 @@ VAR_INPUT (* CONSTANT *)
 	Timeout : TIME;
 END_VAR
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	IN : BOOL;
 	RST : BOOL;
 END_VAR
@@ -557,7 +557,7 @@ a asynchronous reset and set will force the output high or low respectively.
 IF off.Q THEN Q := FALSE; END_IF;
 IF rst THEN
 	Q := FALSE;
-ELSIF set THEN
+ELSIF set0 THEN
 	Q := TRUE;
 ELSIF IN AND NOT edge THEN
 	IF toggle_mode THEN q := NOT Q; ELSE q := TRUE; END_IF;
@@ -584,7 +584,7 @@ VAR_INPUT (* CONSTANT *)
 	Timeout : TIME;
 END_VAR
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	IN0, IN1, IN2, IN3 : BOOL;
 	RST : BOOL;
 END_VAR
@@ -608,10 +608,10 @@ an asynchronous set will force all outputs high simultaneously
 
 *)
 (* @END_DECLARATION := '0' *)
-D0(Set:=set, in:=in0, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
-D1(Set:=set, in:=in1, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
-D2(Set:=set, in:=in2, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
-D3(Set:=set, in:=in3, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
+D0(Set0:=set0, in:=in0, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
+D1(Set0:=set0, in:=in1, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
+D2(Set0:=set0, in:=in2, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
+D3(Set0:=set0, in:=in3, rst:=rst, toggle_mode:=toggle_mode, timeout:=timeout);
 Q0 := D0.Q;
 Q1 := D1.Q;
 Q2 := D2.Q;
@@ -1190,7 +1190,7 @@ VAR_INPUT
 	IN : BOOL;
 	MAN : BOOL;
 	M_I : BOOL;
-	SET : BOOL;
+	SET0 : BOOL;
 	RST : BOOL;
 END_VAR
 VAR_OUTPUT
@@ -1218,7 +1218,7 @@ IF NOT man THEN
 	Q := IN;
 	STATUS := 100;
 	edge := FALSE;
-ELSIF NOT s_edge AND set THEN
+ELSIF NOT s_edge AND set0 THEN
 	Q := TRUE;
 	edge := TRUE;
 	status := 101;
@@ -1232,7 +1232,7 @@ ELSIF NOT edge THEN
 END_IF;
 
 (* remember levels of manual signals *)
-s_edge := SET;
+s_edge := SET0;
 r_edge := RST;
 
 
@@ -1421,7 +1421,7 @@ VAR
 	S1, S2, S3, S4 : REAL;
 	tx, last : DWORD;
 	start : BOOL;
-	set : BYTE;
+	set0 : BYTE;
 	init: BOOL;
 END_VAR
 
@@ -1440,7 +1440,7 @@ tx := T_PLC_MS();
 
 (* init sequence *)
 IF NOT init THEN
-	set.0 := NOT A0;
+	set0.0 := NOT A0;
 	init := TRUE;
 	X[0,1] := X01;
 	X[0,2] := X02;
@@ -1465,32 +1465,32 @@ IF NOT init THEN
 END_IF;
 
 (* check for input change *)
-IF (A0 XOR set.0) OR (A1 XOR set.1) THEN
+IF (A0 XOR set0.0) OR (A1 XOR set0.1) THEN
 	(* a new set is selected *)
-	set.0 := A0;
-	set.1 := A1;
+	set0.0 := A0;
+	set0.1 := A1;
 	IF tc > t#0s THEN
 		start := TRUE;
 		last := tx;
 		(* save the step speed for the output changes in S *)
-		S1 := (X[set,1] - P1)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
-		S2 := (X[set,2] - P2)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
-		S3 := (X[set,3] - P3)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
-		S4 := (X[set,4] - P4)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
+		S1 := (X[set0,1] - P1)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
+		S2 := (X[set0,2] - P2)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
+		S3 := (X[set0,3] - P3)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
+		S4 := (X[set0,4] - P4)/DWORD_TO_REAL(TIME_TO_DWORD(tc));
 	END_IF;
 ELSIF start AND tx - last < TIME_TO_DWORD(tc) THEN
 	(* ramp the outputs to the new value *)
-	P1 := X[set,1] - S1 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
-	P2 := X[set,2] - S2 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
-	P3 := X[set,3] - S3 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
-	P4 := X[set,4] - S4 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
+	P1 := X[set0,1] - S1 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
+	P2 := X[set0,2] - S2 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
+	P3 := X[set0,3] - S3 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
+	P4 := X[set0,4] - S4 * DWORD_TO_REAL(TIME_TO_DWORD(Tc) - tx + last);
 ELSE
 	(* make sure outputs match the correct set values *)
 	start := FALSE;
-	P1 := X[set,1];
-	P2 := X[set,2];
-	P3 := X[set,3];
-	P4 := X[set,4];
+	P1 := X[set0,1];
+	P2 := X[set0,2];
+	P3 := X[set0,3];
+	P4 := X[set0,4];
 END_IF;
 
 (* revision history
@@ -1777,7 +1777,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK TUNE
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	SU, SD : BOOL;
 	RST : BOOL;
 END_VAR
@@ -1823,7 +1823,7 @@ tx := T_PLC_MS();
 IF rst THEN
 	Y := RST_val;
 	state := 0;
-ELSIF set THEN
+ELSIF set0 THEN
 	Y := SET_val;
 	state := 0;
 ELSIF state > 0 THEN
@@ -1890,7 +1890,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK TUNE2
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	SU, SD : BOOL;
 	FU, FD : BOOL;
 	RST : BOOL;
@@ -1936,7 +1936,7 @@ tx := T_PLC_MS();
 IF rst THEN
 	Y := RST_val;
 	state := 0;
-ELSIF set THEN
+ELSIF set0 THEN
 	Y := SET_val;
 	state := 0;
 ELSIF state > 0 THEN
@@ -2274,7 +2274,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK CTRL_PI
 VAR_INPUT
-	ACT, SET, SUP, OFS, M_I : REAL;
+	ACT, SET0, SUP, OFS, M_I : REAL;
 	MAN : BOOL;
 	RST : BOOL;
 	KP : REAL := 1.0;
@@ -2313,7 +2313,7 @@ default values for KP = 1, TN = 1, TV = 1, LIMIT_L = -1000, LIMIT_H = +1000.
 *)
 
 (* @END_DECLARATION := '0' *)
-DIFF := CTRL_IN(SET, ACT, SUP);
+DIFF := CTRL_IN(SET0, ACT, SUP);
 pi(in := DIFF, kp := KP, ki := KI, lim_l := LL, lim_h := LH, rst := RST);
 co(ci := pi.Y, OFFSET := OFS, man_in := M_I, lim_l := LL, lim_h := LH, MANUAL := MAN);
 Y := co.Y;
@@ -2346,7 +2346,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK CTRL_PID
 VAR_INPUT
-	ACT, SET, SUP, OFS, M_I : REAL;
+	ACT, SET0, SUP, OFS, M_I : REAL;
 	MAN : BOOL;
 	RST : BOOL;
 	KP : REAL := 1.0;
@@ -2381,7 +2381,7 @@ the output flags lim will signal that the output limits are active.
 *)
 
 (* @END_DECLARATION := '0' *)
-DIFF := CTRL_IN(SET, ACT, SUP);
+DIFF := CTRL_IN(SET0, ACT, SUP);
 pid(in := DIFF, kp := KP, tn := TN, tv := TV, lim_l := LL, lim_h := LH, rst := RST);
 co(ci := pid.Y, OFFSET := OFS, man_in := M_I, lim_l := LL, lim_h := LH, MANUAL := MAN);
 Y := co.Y;
@@ -7774,7 +7774,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK RMP_B
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	PT : TIME;
 	E : BOOL := TRUE;
 	UP : BOOL := TRUE;
@@ -7811,7 +7811,7 @@ rmp(dir := UP, E := E, TR := PT, rmp := out);
 (* set or reset operation *)
 IF RST THEN
 	out := 0;
-ELSIF SET THEN
+ELSIF SET0 THEN
 	out := 255;
 END_IF;
 
@@ -7926,7 +7926,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK RMP_W
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	PT : TIME;
 	E : BOOL := TRUE;
 	UP : BOOL := TRUE;
@@ -7961,7 +7961,7 @@ rmp(dir := UP, E := E, TR := PT, rmp := out);
 (* set or reset operation *)
 IF RST THEN
 	out := 0;
-ELSIF SET THEN
+ELSIF SET0 THEN
 	out := 65535;
 END_IF;
 
@@ -8469,19 +8469,19 @@ When F = TRUE then Y = IN2 after the time TF, and when F = FALSE then Y = IN1.
 *)
 
 (* @END_DECLARATION := '0' *)
-rmx(rst := rst AND NOT F, set := rst AND F, pt := TF, up := F);
+rmx(rst := rst AND NOT F, set0 := rst AND F, pt := TF, up := F);
 Y := (in2 - In1) / 65535.0 * WORD_TO_REAL(rmx.out) + in1;
 
 
 (* code for rev 1.1
 IF rst THEN
-	rmx(set := F, rst := NOT F);
+	rmx(set0 := F, rst := NOT F);
 ELSIF F AND (NOT rmx.high) THEN
-	rmx(PT := TF, UP := TRUE, e := TRUE, rst := FALSE, set := FALSE);
+	rmx(PT := TF, UP := TRUE, e := TRUE, rst := FALSE, set0 := FALSE);
 ELSIF (NOT F) AND (NOT rmx.low) THEN
-	rmx(PT := TF, UP := FALSE, e := TRUE, rst := FALSE, set := FALSE);
+	rmx(PT := TF, UP := FALSE, e := TRUE, rst := FALSE, set0 := FALSE);
 ELSE
-	rmx(e := FALSE, rst := FALSE, set := FALSE);
+	rmx(e := FALSE, rst := FALSE, set0 := FALSE);
 END_IF;
 Y := (WORD_TO_REAL(rmx.out) * in1 + WORD_TO_REAL(FF - rmx.out) * IN2) / FF;
 *)
@@ -10845,7 +10845,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK COUNT_BR
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	IN : BYTE;
 	UP : BOOL;
 	DN : BOOL;
@@ -10873,7 +10873,7 @@ a step input sets the counters stepping width.
 (* @END_DECLARATION := '0' *)
 IF rst THEN
 	cnt := 0;
-ELSIF set THEN
+ELSIF set0 THEN
 	cnt := LIMIT(0,in,mx);
 ELSIF up AND NOT last_up THEN
 	cnt := INT_TO_BYTE(INC(cnt,step,mx));
@@ -10897,7 +10897,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK COUNT_DR
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	IN : DWORD;
 	UP : BOOL;
 	DN : BOOL;
@@ -10925,7 +10925,7 @@ a step input sets the counters stepping width.
 (* @END_DECLARATION := '0' *)
 IF rst THEN
 	cnt := 0;
-ELSIF set THEN
+ELSIF set0 THEN
 	cnt := LIMIT(0,in,mx);
 ELSIF up AND NOT last_up THEN
 	IF STEP > MX - CNT THEN
@@ -11081,7 +11081,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK FF_DRE
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	D : BOOL;
 	CLK : BOOL;
 	RST : BOOL;
@@ -11104,7 +11104,7 @@ D-type flip flop with set, reset and rising clock trigger
 *)
 
 (* @END_DECLARATION := '0' *)
-IF rst OR set THEN
+IF rst OR set0 THEN
 	Q := NOT rst;
 ELSIF clk AND NOT edge THEN
 	Q := D;
@@ -11130,7 +11130,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK FF_JKE
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	J : BOOL;
 	CLK : BOOL;
 	K : BOOL;
@@ -11160,7 +11160,7 @@ J=1 and K=1 and CLK >>> toggle output
 *)
 
 (* @END_DECLARATION := '0' *)
-IF rst OR set THEN
+IF rst OR set0 THEN
 	Q := NOT rst;
 ELSIF clk AND NOT edge THEN
 	IF J XOR K THEN Q := J;
@@ -11245,7 +11245,7 @@ END_FUNCTION_BLOCK
 FUNCTION_BLOCK SELECT_8
 VAR_INPUT
 	E : BOOL;
-	SET : BOOL;
+	SET0 : BOOL;
 	IN : BYTE;
 	UP : BOOL;
 	DN : BOOL;
@@ -11272,7 +11272,7 @@ select_8 selects one of 8 outputs at any time. the outputscan be selected by up 
 (* @END_DECLARATION := '0' *)
 IF rst THEN
 	state := 0;
-ELSIF set THEN
+ELSIF set0 THEN
 	state := IN;
 ELSIF up AND NOT last_up THEN
 	state := inc(state,1,7);
@@ -11320,7 +11320,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK SHR_4E
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	D0: BOOL;
 	CLK: BOOL;
 	RST: BOOL;
@@ -11347,7 +11347,7 @@ tested by		tobias
 (* trig.Q signals a rising edge on clk *)
 trig(clk := clk);
 
-IF set OR rst THEN
+IF set0 OR rst THEN
 	Q0 := NOT rst;
 	Q1 := Q0;
 	Q2 := Q0;
@@ -11378,7 +11378,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK SHR_4UDE
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	D0: BOOL;
 	D3: BOOL;
 	CLK: BOOL;
@@ -11408,7 +11408,7 @@ tested by		tobias
 (* trig.Q signals a rising edge on clk *)
 trig(clk := clk);
 
-IF set OR rst THEN
+IF set0 OR rst THEN
 	Q0 := NOT RST;
 	Q1 := Q0;
 	Q2 := Q0;
@@ -11512,7 +11512,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK SHR_8UDE
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	D0: BOOL;
 	D7: BOOL;
 	CLK: BOOL;
@@ -11546,7 +11546,7 @@ tested by		tobias
 (* trig.Q signals a rising edge on clk *)
 trig(clk := clk);
 
-IF set OR rst THEN
+IF set0 OR rst THEN
 	Q0 := NOT RST;
 	Q1 := Q0;
 	Q2 := Q0;
@@ -11760,7 +11760,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK STORE_8
 VAR_INPUT
-	Set : BOOL;
+	Set0 : BOOL;
 	D0,D1, D2, D3, D4, D5, D6, D7 : BOOL;
 	Clr : BOOL;
 	Rst : BOOL;
@@ -11785,7 +11785,7 @@ the lowest priority is q3.
 
 *)
 (* @END_DECLARATION := '0' *)
-IF rst OR set THEN
+IF rst OR set0 THEN
 	q0 := NOT rst;
 	q1 := q0;
 	q2 := q0;
@@ -26874,7 +26874,7 @@ END_FUNCTION
 FUNCTION_BLOCK DCF77
 VAR_INPUT
 	REC : BOOL;
-	SET : BOOL;
+	SET0 : BOOL;
 	SDT : DT;
 	DSI : BOOL;
 END_VAR
@@ -27057,7 +27057,7 @@ END_IF;
 tz := DWORD_TO_TIME(INT_TO_DWORD(ABS(time_offset))* 3600000);
 
 (* input sdt is copied to utc at first power up *)
-IF NOT init OR SET THEN
+IF NOT init OR SET0 THEN
 	init := TRUE;
 	utc := sdt;
 	tp := TRUE;
@@ -28414,7 +28414,7 @@ END_FUNCTION
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK RTC_2
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	SDT : DT;
 	SMS : INT;
 	DEN : BOOL;
@@ -28442,7 +28442,7 @@ daylight savings time can be enabled with den and an additional local time is ge
 
 (* @END_DECLARATION := '0' *)
 (* call rtc *)
-RT(SET := SET, SDT := SDT, SMS := SMS);
+RT(SET0 := SET0, SDT := SDT, SMS := SMS);
 UDT := rt.xdt;
 XMS := rt.XMS;
 
@@ -28479,7 +28479,7 @@ END_FUNCTION_BLOCK
 (* @SYMFILEFLAGS := '2048' *)
 FUNCTION_BLOCK RTC_MS
 VAR_INPUT
-	SET : BOOL;
+	SET0 : BOOL;
 	SDT : DT;
 	SMS : INT;
 END_VAR
@@ -28504,7 +28504,7 @@ RTC_MS is a real time clock module which can be set to SDT when set is TRUE and 
 
 (* @END_DECLARATION := '0' *)
 tx := T_PLC_MS();
-IF set OR NOT init THEN
+IF set0 OR NOT init THEN
 	(* clock needs to be set when set is true or after power up *)
 	init := TRUE;
 	xdt := SDT;
