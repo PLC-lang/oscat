@@ -38,3 +38,4 @@ To avoid errors, the following **breaking** changes were made :
 - `VAR_INPUT CONSANT` was changed to `VAR_INPUT`
 - `OVERRIDE` was renamed to `_OVERRIDE`
 - `ARRAY_MAX/MIN/SPR/SUM` type of size changed to ULINT
+- temporarily renamed `SET` parameters to `SET0` to avoid conflicts with keywords
