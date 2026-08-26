@@ -1,16 +1,6 @@
 
 (********************
  *
- * Converts STRING to INT
- *
-*********************)
-@EXTERNAL FUNCTION STRING_TO_INT : INT
-VAR_INPUT
-	in : STRING;
-END_VAR
-END_FUNCTION
-(********************
- *
  * Converts INT to STRING
  *
 *********************)
