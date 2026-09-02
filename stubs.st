@@ -1,17 +1,6 @@
 
 (********************
  *
- * Converts INT to STRING
- *
-*********************)
-@EXTERNAL FUNCTION INT_TO_STRING : STRING
-VAR_INPUT
-	in : INT;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts UDINT to DT
  *
 *********************)
