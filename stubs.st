@@ -134,45 +134,12 @@ END_FUNCTION
 
 (********************
  *
- * Converts BYTE to REAL
- *
-*********************)
-@EXTERNAL FUNCTION BYTE_TO_REAL : REAL
-VAR_INPUT
-	in : BYTE;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts WORD to REAL
- *
-*********************)
-@EXTERNAL FUNCTION WORD_TO_REAL : REAL
-VAR_INPUT
-	in : WORD;
-END_VAR
-END_FUNCTION
-
-(********************
- *
  * Converts TIME to DINT
  *
 *********************)
 @EXTERNAL FUNCTION TIME_TO_DINT : DINT
 VAR_INPUT
 	in : TIME;
-END_VAR
-END_FUNCTION
-
-(********************
- *
- * Converts REAL to TIME
- *
-*********************)
-@EXTERNAL FUNCTION REAL_TO_TIME : TIME
-VAR_INPUT
-	in : REAL;
 END_VAR
 END_FUNCTION
 
@@ -187,17 +154,6 @@ VAR_INPUT
 END_VAR
 END_FUNCTION
 
-
-(********************
- *
- * Converts DWORD to TIME
- *
-*********************)
-@EXTERNAL FUNCTION DWORD_TO_TIME : TIME
-VAR_INPUT
-	in : DWORD;
-END_VAR
-END_FUNCTION
 
 (********************
  *
